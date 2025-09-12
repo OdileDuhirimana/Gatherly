@@ -14,7 +14,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     if (token) {
-      dispatch(fetchProfile(token));
+      dispatch(fetchProfile());
       dispatch(fetchEvents());
     }
   }, [dispatch, token]);
