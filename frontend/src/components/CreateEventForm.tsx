@@ -140,13 +140,13 @@ const CreateEventForm = ({ onSuccess, onCancel }: CreateEventFormProps) => {
                 Description *
               </label>
               <textarea
-                {...register('description')}
+                name="description" value={formData.description} onChange={handleChange}
                 rows={4}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 placeholder="Describe your event"
               />
               {errors.description && (
-                <p className="mt-1 text-sm text-red-600">{errors.description.message}</p>
+                <p className="mt-1 text-sm text-red-600">{errors.description}</p>
               )}
             </div>
 
@@ -157,12 +157,12 @@ const CreateEventForm = ({ onSuccess, onCancel }: CreateEventFormProps) => {
                 Date & Time *
               </label>
               <input
-                {...register('dateTime')}
+                name="dateTime" value={formData.dateTime} onChange={handleChange}
                 type="datetime-local"
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
               {errors.dateTime && (
-                <p className="mt-1 text-sm text-red-600">{errors.dateTime.message}</p>
+                <p className="mt-1 text-sm text-red-600">{errors.dateTime}</p>
               )}
             </div>
 
@@ -173,13 +173,13 @@ const CreateEventForm = ({ onSuccess, onCancel }: CreateEventFormProps) => {
                 Location *
               </label>
               <input
-                {...register('location')}
+                name="location" value={formData.location} onChange={handleChange}
                 type="text"
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 placeholder="Enter event location"
               />
               {errors.location && (
-                <p className="mt-1 text-sm text-red-600">{errors.location.message}</p>
+                <p className="mt-1 text-sm text-red-600">{errors.location}</p>
               )}
             </div>
 
@@ -191,7 +191,7 @@ const CreateEventForm = ({ onSuccess, onCancel }: CreateEventFormProps) => {
                   Category
                 </label>
                 <select
-                  {...register('category')}
+                  name="category" value={formData.category} onChange={handleChange}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 >
                   <option value="">Select category</option>
@@ -212,14 +212,14 @@ const CreateEventForm = ({ onSuccess, onCancel }: CreateEventFormProps) => {
                   Max Attendees
                 </label>
                 <input
-                  {...register('maxAttendees')}
+                  name="maxAttendees" value={formData.maxAttendees || ""} onChange={handleChange}
                   type="number"
                   min="1"
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="No limit"
                 />
                 {errors.maxAttendees && (
-                  <p className="mt-1 text-sm text-red-600">{errors.maxAttendees.message}</p>
+                  <p className="mt-1 text-sm text-red-600">{errors.maxAttendees}</p>
                 )}
               </div>
             </div>
