@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import axios from 'axios';
-import { RootState } from '../store';
+import type { RootState } from '../store';
 
 const EventDetail = () => {
   const { id } = useParams();
@@ -12,7 +12,6 @@ const EventDetail = () => {
   const [registered, setRegistered] = useState(false);
   
   const { token } = useSelector((state: RootState) => state.auth);
-  const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchEvent = async () => {

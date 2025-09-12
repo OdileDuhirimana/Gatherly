@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { RootState } from '../store';
+import type { RootState } from '../store';
 import { register, clearError } from '../store/slices/authSlice';
 
 const Register = () => {
@@ -13,7 +13,7 @@ const Register = () => {
     role: 'attendee' as 'admin' | 'organizer' | 'attendee'
   });
   
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<any>();
   const navigate = useNavigate();
   const { loading, error } = useSelector((state: RootState) => state.auth);
 

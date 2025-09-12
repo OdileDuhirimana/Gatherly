@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { RootState } from '../store';
+import type { RootState } from '../store';
 import { fetchEvents } from '../store/slices/eventsSlice';
 
 const Events = () => {
   const { events, loading, error } = useSelector((state: RootState) => state.events);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<any>();
 
   useEffect(() => {
     dispatch(fetchEvents());

@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
-import { RootState } from '../store';
+import type { RootState } from '../store';
 import { fetchEvents } from '../store/slices/eventsSlice';
 import { fetchProfile } from '../store/slices/authSlice';
 
@@ -11,7 +10,7 @@ const Dashboard = () => {
   const { events } = useSelector((state: RootState) => state.events);
   const [userEvents, setUserEvents] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<any>();
 
   useEffect(() => {
     if (token) {
