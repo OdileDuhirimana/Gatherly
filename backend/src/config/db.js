@@ -3,8 +3,16 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const databaseUrl = process.env.DATABASE_URL;
+const url = process.env.DATABASE_URL;
+const dialect = process.env.DB_DIALECT || 'mysql';
 
-export const sequelize = new Sequelize(databaseUrl, {
-  logging: false,
-});
+let sequelize;
+if (dialect === 'sqlite') {
+  sequelize = new Sequelize({ dialect: 'sqlite', storage: './sqlite.db', logging: false });
+} else if (url) {
+  sequelize = new Sequelize(url, { logging: false });
+} else {
+  throw new Error('Database configuration missing: set DB_DIALECT=sqlite or DATABASE_URL');
+}
+
+export { sequelize };
