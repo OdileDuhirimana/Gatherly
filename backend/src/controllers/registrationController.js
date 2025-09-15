@@ -1,12 +1,12 @@
-import { Registration, Event, User } from '../models/index.js';
+import { User, Event, Registration } from '../models/index.js';
 import { Op } from 'sequelize';
 
 export async function registerForEvent(req, res) {
   try {
-    const { id } = req.params;
+    const { eventId } = req.params;
     const userId = req.user.id;
     
-    const event = await Event.findByPk(id);
+    const event = await Event.findByPk(eventId);
     if (!event) {
       return res.status(404).json({ message: 'Event not found' });
     }
@@ -14,7 +14,7 @@ export async function registerForEvent(req, res) {
     // Check if event is full
     if (event.maxAttendees) {
       const currentRegistrations = await Registration.count({
-        where: { eventId: id, status: { [Op.ne]: 'cancelled' } }
+        where: { eventId: eventId, status: { [Op.ne]: 'cancelled' } }
       });
       
       if (currentRegistrations >= event.maxAttendees) {
@@ -24,7 +24,7 @@ export async function registerForEvent(req, res) {
     
     // Check if user is already registered
     const existingRegistration = await Registration.findOne({
-      where: { userId, eventId: id }
+      where: { userId, eventId: eventId }
     });
     
     if (existingRegistration) {
@@ -43,14 +43,14 @@ export async function registerForEvent(req, res) {
     // Create new registration
     const registration = await Registration.create({
       userId,
-      eventId: id,
+      eventId: eventId,
       status: 'registered'
     });
     
     const registrationWithDetails = await Registration.findByPk(registration.id, {
       include: [
-        { model: User, attributes: ['id', 'name', 'email'] },
-        { model: Event, attributes: ['id', 'title', 'dateTime', 'location'] }
+        { model: User, as: 'attendee', attributes: ['id', 'name', 'email'] },
+        { model: Event, as: 'event', attributes: ['id', 'title', 'dateTime', 'location'] }
       ]
     });
     
@@ -66,11 +66,11 @@ export async function registerForEvent(req, res) {
 
 export async function cancelRegistration(req, res) {
   try {
-    const { id } = req.params;
+    const { eventId } = req.params;
     const userId = req.user.id;
     
     const registration = await Registration.findOne({
-      where: { userId, eventId: id }
+      where: { userId, eventId: eventId }
     });
     
     if (!registration) {
@@ -95,12 +95,12 @@ export async function cancelRegistration(req, res) {
 
 export async function checkIn(req, res) {
   try {
-    const { id, regId } = req.params;
+    const { eventId, registrationId } = req.params;
     
-    const registration = await Registration.findByPk(regId, {
+    const registration = await Registration.findByPk(registrationId, {
       include: [
-        { model: User, attributes: ['id', 'name', 'email'] },
-        { model: Event, attributes: ['id', 'title', 'dateTime'] }
+        { model: User, as: 'attendee', attributes: ['id', 'name', 'email'] },
+        { model: Event, as: 'event', attributes: ['id', 'title', 'dateTime'] }
       ]
     });
     
@@ -108,7 +108,7 @@ export async function checkIn(req, res) {
       return res.status(404).json({ message: 'Registration not found' });
     }
     
-    if (registration.eventId !== parseInt(id)) {
+    if (registration.eventId !== parseInt(eventId)) {
       return res.status(400).json({ message: 'Registration does not belong to this event' });
     }
     
@@ -134,11 +134,11 @@ export async function checkIn(req, res) {
 
 export async function listEventAttendees(req, res) {
   try {
-    const { id } = req.params;
+    const { eventId } = req.params;
     const { page = 1, limit = 50, status } = req.query;
     const offset = (page - 1) * limit;
     
-    const event = await Event.findByPk(id);
+    const event = await Event.findByPk(eventId);
     if (!event) {
       return res.status(404).json({ message: 'Event not found' });
     }
@@ -148,7 +148,7 @@ export async function listEventAttendees(req, res) {
       return res.status(403).json({ message: 'Access denied' });
     }
     
-    let whereClause = { eventId: id };
+    let whereClause = { eventId: eventId };
     if (status) {
       whereClause.status = status;
     }
@@ -158,6 +158,7 @@ export async function listEventAttendees(req, res) {
       include: [
         { 
           model: User, 
+          as: 'attendee',
           attributes: ['id', 'name', 'email'] 
         }
       ],
@@ -191,14 +192,12 @@ export async function getUserRegistrations(req, res) {
       whereClause.status = status;
     }
     
+    // Test associations
+    console.log('Registration associations:', Object.keys(Registration.associations));
+    console.log('Event associations:', Object.keys(Event.associations));
+    
     const registrations = await Registration.findAll({
       where: whereClause,
-      include: [
-        {
-          model: Event,
-          include: [{ model: User, as: 'organizer', attributes: ['id', 'name', 'email'] }]
-        }
-      ],
       order: [['createdAt', 'DESC']]
     });
     
@@ -211,9 +210,9 @@ export async function getUserRegistrations(req, res) {
 
 export async function exportAttendeesCSV(req, res) {
   try {
-    const { id } = req.params;
+    const { eventId } = req.params;
     
-    const event = await Event.findByPk(id);
+    const event = await Event.findByPk(eventId);
     if (!event) {
       return res.status(404).json({ message: 'Event not found' });
     }
@@ -224,10 +223,11 @@ export async function exportAttendeesCSV(req, res) {
     }
     
     const registrations = await Registration.findAll({
-      where: { eventId: id, status: { [Op.ne]: 'cancelled' } },
+      where: { eventId: eventId, status: { [Op.ne]: 'cancelled' } },
       include: [
         { 
           model: User, 
+          as: 'attendee',
           attributes: ['id', 'name', 'email'] 
         }
       ],
@@ -237,7 +237,7 @@ export async function exportAttendeesCSV(req, res) {
     // Generate CSV content
     let csvContent = 'Name,Email,Registration Date,Status\n';
     registrations.forEach(reg => {
-      csvContent += `"${reg.User.name}","${reg.User.email}","${reg.createdAt.toISOString()}","${reg.status}"\n`;
+      csvContent += `"${reg.attendee.name}","${reg.attendee.email}","${reg.createdAt.toISOString()}","${reg.status}"\n`;
     });
     
     res.setHeader('Content-Type', 'text/csv');

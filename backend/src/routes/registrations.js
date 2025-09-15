@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import { authenticate } from '../middleware/auth.js';
-import { authorizeRoles } from '../middleware/auth.js';
+import { authenticate, authorizeRoles } from '../middleware/auth.js';
+import { validateRegistration, validateCheckIn, handleValidationErrors } from '../middleware/validation.js';
 import { 
   registerForEvent, 
   cancelRegistration,
@@ -12,14 +12,23 @@ import {
 
 const router = Router({ mergeParams: true });
 
-// User registration routes
-router.post('/:id/register', authenticate, registerForEvent);
-router.delete('/:id/register', authenticate, cancelRegistration);
+console.log('Setting up registration routes...');
+
+// Test route
+router.get('/test', (req, res) => {
+  res.json({ message: 'Registrations router is working' });
+});
+
+// User registration routes - specific routes first
 router.get('/user/my-registrations', authenticate, getUserRegistrations);
 
+// Event-specific routes
+router.post('/:eventId', validateRegistration, handleValidationErrors, authenticate, registerForEvent);
+router.delete('/:eventId', validateRegistration, handleValidationErrors, authenticate, cancelRegistration);
+
 // Organizer/Admin routes
-router.post('/:id/registrations/:regId/check-in', authenticate, authorizeRoles('admin','organizer'), checkIn);
-router.get('/:id/registrations', authenticate, authorizeRoles('admin','organizer'), listEventAttendees);
-router.get('/:id/export', authenticate, authorizeRoles('admin','organizer'), exportAttendeesCSV);
+router.put('/:eventId/checkin/:registrationId', validateCheckIn, handleValidationErrors, authenticate, authorizeRoles('admin','organizer'), checkIn);
+router.get('/:eventId', validateRegistration, handleValidationErrors, authenticate, authorizeRoles('admin','organizer'), listEventAttendees);
+router.get('/:eventId/export', validateRegistration, handleValidationErrors, authenticate, authorizeRoles('admin','organizer'), exportAttendeesCSV);
 
 export default router;

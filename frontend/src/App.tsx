@@ -1,31 +1,32 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { Toaster } from 'react-hot-toast';
 import { store } from './store';
 import Navbar from './components/Navbar';
+import Landing from './pages/Landing';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Events from './pages/Events';
 import Dashboard from './pages/Dashboard';
 import EventDetail from './pages/EventDetail';
+import CreateEvent from './pages/CreateEvent';
 
 function App() {
   return (
     <Provider store={store}>
       <Router>
-        <div className="min-h-screen bg-gray-50">
-          <Navbar />
-          <main>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
-              <Route path="/events" element={<Events />} />
-              <Route path="/events/:id" element={<EventDetail />} />
-              <Route path="/dashboard" element={<Dashboard />} />
-            </Routes>
-          </main>
+        <div className="min-h-screen">
+          <Routes>
+            <Route path="/" element={<Landing />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/events" element={<Events />} />
+            <Route path="/events/:id" element={<EventDetail />} />
+            <Route path="/events/create" element={<CreateEvent />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+          </Routes>
           <Toaster
             position="top-right"
             toastOptions={{

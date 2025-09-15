@@ -34,12 +34,12 @@ export const validateEvent = [
 ];
 
 export const validateRegistration = [
-  param('id').isInt().withMessage('Invalid event ID')
+  param('eventId').isInt().withMessage('Invalid event ID')
 ];
 
 export const validateCheckIn = [
-  param('id').isInt().withMessage('Invalid event ID'),
-  param('regId').isInt().withMessage('Invalid registration ID')
+  param('eventId').isInt().withMessage('Invalid event ID'),
+  param('registrationId').isInt().withMessage('Invalid registration ID')
 ];
 
 export const validatePagination = [

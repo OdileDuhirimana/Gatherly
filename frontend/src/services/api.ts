@@ -71,15 +71,15 @@ export const eventsAPI = {
 // Registrations API
 export const registrationsAPI = {
   registerForEvent: (eventId: string) =>
-    api.post(`/events/${eventId}/register`),
+    api.post(`/registrations/${eventId}`),
   cancelRegistration: (eventId: string) =>
-    api.delete(`/events/${eventId}/register`),
+    api.delete(`/registrations/${eventId}`),
   getUserRegistrations: (status?: string) =>
-    api.get('/events/user/my-registrations', { params: { status } }),
+    api.get('/registrations/user/my-registrations', { params: { status } }),
   checkIn: (eventId: string, regId: string) =>
-    api.post(`/events/${eventId}/registrations/${regId}/check-in`),
+    api.put(`/registrations/${eventId}/checkin/${regId}`),
   getEventAttendees: (eventId: string, params?: { page?: number; limit?: number; status?: string }) =>
-    api.get(`/events/${eventId}/registrations`, { params }),
+    api.get(`/registrations/${eventId}`, { params }),
   exportAttendees: (eventId: string) =>
     api.get(`/events/${eventId}/export`, { responseType: 'blob' }),
 };

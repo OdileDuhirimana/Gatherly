@@ -6,9 +6,16 @@ import registrationsRouter from './registrations.js';
 
 const router = Router();
 
+console.log('Mounting routes...');
 router.use('/auth', authRouter);
 router.use('/events', eventsRouter);
-router.use('/events', registrationsRouter);
+try {
+  router.use('/registrations', registrationsRouter);
+  console.log('Registrations router mounted successfully');
+} catch (error) {
+  console.error('Error mounting registrations router:', error);
+}
+console.log('Routes mounted successfully');
 
 router.get('/health', (req, res) => {
   res.json({ status: 'ok' });
