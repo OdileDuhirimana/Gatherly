@@ -1,5 +1,6 @@
 const { validationResult } = require('express-validator');
 const { models } = require('../models');
+const { Op } = require('sequelize');
 const { logAudit } = require('../utils/audit');
 const { getEventAndRoleContext } = require('../utils/eventAccess');
 
@@ -8,7 +9,7 @@ const list = async (req, res, next) => {
     const { page = 1, limit = 20, q, category, featured, published, accessibilityNeed } = req.query;
     const where = {};
     if (q) {
-      where.title = { [models.Event.sequelize.Op.like]: `%${q}%` };
+      where.title = { [Op.like]: `%${q}%` };
     }
     if (category) where.category = category;
     if (featured !== undefined) where.featured = featured === 'true';

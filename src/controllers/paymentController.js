@@ -1,5 +1,6 @@
 const { validationResult } = require('express-validator');
 const { models } = require('../models');
+const { Op } = require('sequelize');
 const { getStripe } = require('../utils/stripe');
 const { computeRefund } = require('../utils/refundPolicy');
 const { evaluatePurchaseRisk } = require('../utils/risk');
@@ -29,7 +30,7 @@ const listFlagged = async (req, res, next) => {
     if (req.user.role !== 'Admin') return res.status(403).json({ error: 'Forbidden' });
     const payments = await models.Payment.findAll({
       where: {
-        riskLevel: { [models.Payment.sequelize.Op.in]: ['medium', 'high'] }
+        riskLevel: { [Op.in]: ['medium', 'high'] }
       },
       order: [['id', 'DESC']],
       limit: 100

@@ -1,8 +1,8 @@
-# Gatherly Backend (Node.js + Express + MySQL)
+# Gatherly Backend (Node.js + Express + SQL)
 
 This is the Gatherly Event Management System backend. Tech stack:
 - Node.js 20, Express.js
-- MySQL 8 via Sequelize ORM
+- MySQL/PostgreSQL via Sequelize ORM
 - JWT + bcrypt auth
 - Stripe for payments (to be wired with your keys)
 - Nodemailer (SMTP) for email notifications
@@ -40,6 +40,40 @@ This creates demo users and a sample event/tickets.
 - Ensure MySQL is running and credentials in `.env` are correct.
 - Install deps: `npm install`
 - Run dev: `npm run dev`
+
+## Render deployment (production-ready)
+
+This project now supports Render deployment with PostgreSQL using `DATABASE_URL`.
+
+### Option A: Blueprint (recommended)
+1. Push this repo to GitHub.
+2. In Render, create a **Blueprint** and point it to this repository.
+3. Render will read `render.yaml` and provision:
+   - Web service: `gatherly-api`
+   - PostgreSQL database: `gatherly-db`
+4. Set unresolved secrets/env vars in Render dashboard:
+   - `BASE_URL`
+   - `STRIPE_SECRET`
+   - `STRIPE_WEBHOOK_SECRET`
+   - SMTP variables (`SMTP_HOST`, `SMTP_USER`, `SMTP_PASS`, `EMAIL_FROM`)
+   - `CORS_ORIGINS`
+
+### Option B: Manual service setup
+Use:
+- Build command: `npm ci`
+- Start command: `npm start`
+- Health check path: `/health`
+- Node version: `>=20`
+
+Set env vars:
+- `NODE_ENV=production`
+- `FAIL_ON_DB_INIT=true`
+- `DB_DIALECT=postgres`
+- `DB_SSL=true`
+- `DB_SYNC=true` (or `false` if you add migrations and run them separately)
+- `DATABASE_URL=<Render postgres connection string>`
+- `UPLOAD_DIR=/tmp/uploads`
+- `TICKET_PDF_DIR=/tmp/tickets`
 
 ## API surface
 - `GET /health` – health check
@@ -209,5 +243,6 @@ See `.env.example`. Important ones:
 
 ## Notes
 - Storage for images and ticket PDFs is local by default under `storage/`.
+- On Render, storage is ephemeral; use `/tmp` paths unless you add external object storage.
 - In development, you can use Mailpit/Mailhog for SMTP testing.
 - For production, make sure to set strong JWT_SECRET and proper SMTP/Stripe secrets.

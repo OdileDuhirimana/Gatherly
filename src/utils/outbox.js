@@ -1,5 +1,6 @@
 const crypto = require('crypto');
 const { models } = require('../models');
+const { Op } = require('sequelize');
 
 const enqueueOutboxEvent = async (eventType, payload) => {
   return models.OutboxEvent.create({
@@ -18,9 +19,9 @@ const processPendingOutbox = async ({ limit = 20 } = {}) => {
 
   const items = await models.OutboxEvent.findAll({
     where: {
-      status: { [models.OutboxEvent.sequelize.Op.in]: ['pending', 'failed'] },
-      retryCount: { [models.OutboxEvent.sequelize.Op.lt]: maxRetries },
-      nextRetryAt: { [models.OutboxEvent.sequelize.Op.lte]: new Date() }
+      status: { [Op.in]: ['pending', 'failed'] },
+      retryCount: { [Op.lt]: maxRetries },
+      nextRetryAt: { [Op.lte]: new Date() }
     },
     order: [['id', 'ASC']],
     limit

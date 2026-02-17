@@ -1,12 +1,13 @@
 const crypto = require('crypto');
 const { models } = require('../models');
+const { Op } = require('sequelize');
 
 const offerMinutes = () => parseInt(process.env.WAITLIST_OFFER_EXPIRES_MIN || '60', 10);
 
 const expireOffers = async ({ eventId, ticketId }) => {
   const where = {
     status: 'pending',
-    expiresAt: { [models.WaitlistOffer.sequelize.Op.lt]: new Date() }
+    expiresAt: { [Op.lt]: new Date() }
   };
   if (eventId) where.eventId = eventId;
   if (ticketId) where.ticketId = ticketId;

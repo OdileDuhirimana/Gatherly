@@ -63,6 +63,9 @@ if (process.env.NODE_ENV !== 'test') {
   initDb().catch((e) => {
     // eslint-disable-next-line no-console
     console.error('DB init error:', e);
+    // In production (or when explicitly requested), fail fast so the platform restarts unhealthy instances.
+    const failFast = process.env.NODE_ENV === 'production' || ['1', 'true', 'yes', 'on'].includes(String(process.env.FAIL_ON_DB_INIT || '').toLowerCase());
+    if (failFast) process.exit(1);
   });
 }
 

@@ -1,5 +1,6 @@
 const { validationResult } = require('express-validator');
 const { models } = require('../models');
+const { Op } = require('sequelize');
 const { logAudit } = require('../utils/audit');
 
 const logConsent = async (req, res, next) => {
@@ -145,9 +146,9 @@ const runRetention = async (req, res, next) => {
     const cutoff = new Date(Date.now() - days * 24 * 60 * 60 * 1000);
 
     const [auditPurged, consentPurged, outboxPurged] = await Promise.all([
-      models.AuditLog.destroy({ where: { timestamp: { [models.AuditLog.sequelize.Op.lt]: cutoff } } }),
-      models.ConsentLog.destroy({ where: { createdAt: { [models.ConsentLog.sequelize.Op.lt]: cutoff } } }),
-      models.OutboxEvent.destroy({ where: { createdAt: { [models.OutboxEvent.sequelize.Op.lt]: cutoff }, status: 'sent' } })
+      models.AuditLog.destroy({ where: { timestamp: { [Op.lt]: cutoff } } }),
+      models.ConsentLog.destroy({ where: { createdAt: { [Op.lt]: cutoff } } }),
+      models.OutboxEvent.destroy({ where: { createdAt: { [Op.lt]: cutoff }, status: 'sent' } })
     ]);
 
     res.json({ data: { days, cutoff, auditPurged, consentPurged, outboxPurged } });

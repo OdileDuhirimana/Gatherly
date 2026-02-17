@@ -1,4 +1,5 @@
 const { models } = require('../models');
+const { Op } = require('sequelize');
 
 const evaluatePurchaseRisk = async ({ userId, ticket, quantity, donationAmount = 0 }) => {
   let score = 0;
@@ -30,7 +31,7 @@ const evaluatePurchaseRisk = async ({ userId, ticket, quantity, donationAmount =
   const recentPayments = await models.Payment.count({
     where: {
       userId,
-      createdAt: { [models.Payment.sequelize.Op.gte]: lookback }
+      createdAt: { [Op.gte]: lookback }
     }
   });
 

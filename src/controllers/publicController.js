@@ -1,4 +1,5 @@
 const { models } = require('../models');
+const { Op } = require('sequelize');
 
 const transparency = async (req, res, next) => {
   try {
@@ -11,7 +12,7 @@ const transparency = async (req, res, next) => {
 
     const donationTotalRaw = await models.Payment.sum('donationAmount', {
       where: {
-        status: { [models.Payment.sequelize.Op.in]: ['succeeded', 'partial_refund', 'refunded'] }
+        status: { [Op.in]: ['succeeded', 'partial_refund', 'refunded'] }
       }
     });
     const donationTotal = Number(donationTotalRaw || 0);
