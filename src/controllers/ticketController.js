@@ -31,7 +31,11 @@ const create = async (req, res, next) => {
       currency: req.body.currency || 'usd',
       quantity: req.body.quantity,
       limitPerUser: req.body.limitPerUser || 10,
-      expiresAt: req.body.expiresAt || null
+      expiresAt: req.body.expiresAt || null,
+      isDonation: !!req.body.isDonation,
+      isScholarship: !!req.body.isScholarship,
+      minDonationAmount: req.body.minDonationAmount || 0,
+      refundPolicy: req.body.refundPolicy || null
     };
 
     const ticket = await models.Ticket.create(payload);
@@ -54,7 +58,7 @@ const update = async (req, res, next) => {
     const ticket = await models.Ticket.findOne({ where: { id: ticketId, eventId } });
     if (!ticket) return res.status(404).json({ error: 'Ticket not found' });
 
-    const updatable = ['type', 'price', 'currency', 'quantity', 'limitPerUser', 'expiresAt'];
+    const updatable = ['type', 'price', 'currency', 'quantity', 'limitPerUser', 'expiresAt', 'isDonation', 'isScholarship', 'minDonationAmount', 'refundPolicy'];
     for (const k of updatable) if (k in req.body) ticket[k] = req.body[k];
     await ticket.save();
     res.json({ data: ticket });

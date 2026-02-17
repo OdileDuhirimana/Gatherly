@@ -18,6 +18,10 @@ router.post('/',
   body('quantity').isInt({ min: 0 }),
   body('limitPerUser').optional().isInt({ min: 1 }),
   body('expiresAt').optional().isISO8601(),
+  body('isDonation').optional().isBoolean(),
+  body('isScholarship').optional().isBoolean(),
+  body('minDonationAmount').optional().isFloat({ min: 0 }),
+  body('refundPolicy').optional().isObject(),
   ctrl.create
 );
 
@@ -32,6 +36,10 @@ router.put('/:ticketId',
   body('quantity').optional().isInt({ min: 0 }),
   body('limitPerUser').optional().isInt({ min: 1 }),
   body('expiresAt').optional().isISO8601(),
+  body('isDonation').optional().isBoolean(),
+  body('isScholarship').optional().isBoolean(),
+  body('minDonationAmount').optional().isFloat({ min: 0 }),
+  body('refundPolicy').optional().isObject(),
   ctrl.update
 );
 

@@ -6,7 +6,9 @@ module.exports = (sequelize, DataTypes) => {
     ticketId: { type: DataTypes.INTEGER.UNSIGNED, allowNull: false },
     checkedIn: { type: DataTypes.BOOLEAN, defaultValue: false },
     waitlisted: { type: DataTypes.BOOLEAN, defaultValue: false },
-    vip: { type: DataTypes.BOOLEAN, defaultValue: false }
+    vip: { type: DataTypes.BOOLEAN, defaultValue: false },
+    safetyStatus: { type: DataTypes.ENUM('unknown', 'safe', 'need_help'), defaultValue: 'unknown' },
+    safetyUpdatedAt: { type: DataTypes.DATE }
   }, { tableName: 'attendees' });
   return Attendee;
 };

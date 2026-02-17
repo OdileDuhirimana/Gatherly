@@ -9,7 +9,11 @@ module.exports = (sequelize, DataTypes) => {
     sold: { type: DataTypes.INTEGER.UNSIGNED, defaultValue: 0 },
     limitPerUser: { type: DataTypes.INTEGER.UNSIGNED, defaultValue: 10 },
     expiresAt: { type: DataTypes.DATE },
-    uniqueCode: { type: DataTypes.STRING(64) }
+    uniqueCode: { type: DataTypes.STRING(64) },
+    isDonation: { type: DataTypes.BOOLEAN, defaultValue: false },
+    isScholarship: { type: DataTypes.BOOLEAN, defaultValue: false },
+    minDonationAmount: { type: DataTypes.DECIMAL(10, 2), defaultValue: 0 },
+    refundPolicy: { type: DataTypes.JSON }
   }, { tableName: 'tickets' });
   return Ticket;
 };

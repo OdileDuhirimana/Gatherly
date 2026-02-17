@@ -5,18 +5,74 @@
     "description": "Comprehensive request collection for Gatherly backend."
   },
   "variable": [
-    { "key": "baseUrl", "value": "http://localhost:5000" },
-    { "key": "attendeeToken", "value": "" },
-    { "key": "organizerToken", "value": "" },
-    { "key": "adminToken", "value": "" },
-    { "key": "eventId", "value": "1" },
-    { "key": "ticketId", "value": "1" },
-    { "key": "checkInToken", "value": "" },
-    { "key": "attendeeId", "value": "1" },
-    { "key": "commentId", "value": "1" },
-    { "key": "notificationId", "value": "1" },
-    { "key": "paymentId", "value": "1" },
-    { "key": "userId", "value": "1" }
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5000"
+    },
+    {
+      "key": "attendeeToken",
+      "value": ""
+    },
+    {
+      "key": "organizerToken",
+      "value": ""
+    },
+    {
+      "key": "adminToken",
+      "value": ""
+    },
+    {
+      "key": "eventId",
+      "value": "1"
+    },
+    {
+      "key": "ticketId",
+      "value": "1"
+    },
+    {
+      "key": "checkInToken",
+      "value": ""
+    },
+    {
+      "key": "attendeeId",
+      "value": "1"
+    },
+    {
+      "key": "commentId",
+      "value": "1"
+    },
+    {
+      "key": "notificationId",
+      "value": "1"
+    },
+    {
+      "key": "paymentId",
+      "value": "1"
+    },
+    {
+      "key": "userId",
+      "value": "1"
+    },
+    {
+      "key": "waitlistOfferToken",
+      "value": ""
+    },
+    {
+      "key": "scholarshipApplicationId",
+      "value": "1"
+    },
+    {
+      "key": "teamMemberId",
+      "value": "1"
+    },
+    {
+      "key": "approvalId",
+      "value": "1"
+    },
+    {
+      "key": "privacyRequestId",
+      "value": "1"
+    }
   ],
   "item": [
     {
@@ -53,7 +109,10 @@
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
             ],
             "body": {
               "mode": "raw",
@@ -67,7 +126,10 @@
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
             ],
             "body": {
               "mode": "raw",
@@ -81,7 +143,10 @@
           "request": {
             "method": "GET",
             "header": [
-              { "key": "Authorization", "value": "Bearer {{attendeeToken}}" }
+              {
+                "key": "Authorization",
+                "value": "Bearer {{attendeeToken}}"
+              }
             ],
             "url": "{{baseUrl}}/api/auth/me"
           }
@@ -91,7 +156,10 @@
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
             ],
             "body": {
               "mode": "raw",
@@ -105,7 +173,10 @@
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
             ],
             "body": {
               "mode": "raw",
@@ -138,8 +209,14 @@
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Authorization", "value": "Bearer {{organizerToken}}" },
-              { "key": "Content-Type", "value": "application/json" }
+              {
+                "key": "Authorization",
+                "value": "Bearer {{organizerToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
             ],
             "body": {
               "mode": "raw",
@@ -153,8 +230,14 @@
           "request": {
             "method": "PUT",
             "header": [
-              { "key": "Authorization", "value": "Bearer {{organizerToken}}" },
-              { "key": "Content-Type", "value": "application/json" }
+              {
+                "key": "Authorization",
+                "value": "Bearer {{organizerToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
             ],
             "body": {
               "mode": "raw",
@@ -168,7 +251,10 @@
           "request": {
             "method": "DELETE",
             "header": [
-              { "key": "Authorization", "value": "Bearer {{organizerToken}}" }
+              {
+                "key": "Authorization",
+                "value": "Bearer {{organizerToken}}"
+              }
             ],
             "url": "{{baseUrl}}/api/events/{{eventId}}"
           }
@@ -190,8 +276,14 @@
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Authorization", "value": "Bearer {{organizerToken}}" },
-              { "key": "Content-Type", "value": "application/json" }
+              {
+                "key": "Authorization",
+                "value": "Bearer {{organizerToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
             ],
             "body": {
               "mode": "raw",
@@ -205,8 +297,14 @@
           "request": {
             "method": "PUT",
             "header": [
-              { "key": "Authorization", "value": "Bearer {{organizerToken}}" },
-              { "key": "Content-Type", "value": "application/json" }
+              {
+                "key": "Authorization",
+                "value": "Bearer {{organizerToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
             ],
             "body": {
               "mode": "raw",
@@ -220,7 +318,10 @@
           "request": {
             "method": "DELETE",
             "header": [
-              { "key": "Authorization", "value": "Bearer {{organizerToken}}" }
+              {
+                "key": "Authorization",
+                "value": "Bearer {{organizerToken}}"
+              }
             ],
             "url": "{{baseUrl}}/api/events/{{eventId}}/tickets/{{ticketId}}"
           }
@@ -235,8 +336,14 @@
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Authorization", "value": "Bearer {{attendeeToken}}" },
-              { "key": "Content-Type", "value": "application/json" }
+              {
+                "key": "Authorization",
+                "value": "Bearer {{attendeeToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
             ],
             "body": {
               "mode": "raw",
@@ -250,7 +357,10 @@
           "request": {
             "method": "GET",
             "header": [
-              { "key": "Authorization", "value": "Bearer {{organizerToken}}" }
+              {
+                "key": "Authorization",
+                "value": "Bearer {{organizerToken}}"
+              }
             ],
             "url": "{{baseUrl}}/api/events/{{eventId}}/attendees"
           }
@@ -260,8 +370,14 @@
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Authorization", "value": "Bearer {{organizerToken}}" },
-              { "key": "Content-Type", "value": "application/json" }
+              {
+                "key": "Authorization",
+                "value": "Bearer {{organizerToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
             ],
             "body": {
               "mode": "raw",
@@ -275,8 +391,14 @@
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Authorization", "value": "Bearer {{organizerToken}}" },
-              { "key": "Content-Type", "value": "application/json" }
+              {
+                "key": "Authorization",
+                "value": "Bearer {{organizerToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
             ],
             "body": {
               "mode": "raw",
@@ -290,9 +412,80 @@
           "request": {
             "method": "DELETE",
             "header": [
-              { "key": "Authorization", "value": "Bearer {{organizerToken}}" }
+              {
+                "key": "Authorization",
+                "value": "Bearer {{organizerToken}}"
+              }
             ],
             "url": "{{baseUrl}}/api/events/{{eventId}}/attendees/{{attendeeId}}"
+          }
+        },
+        {
+          "name": "Claim Waitlist Offer",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/events/{{eventId}}/attendees/waitlist/claim",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{attendeeToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"token\": \"{{waitlistOfferToken}}\"\n}"
+            }
+          }
+        },
+        {
+          "name": "List Waitlist Offers",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/events/{{eventId}}/attendees/waitlist/offers",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{organizerToken}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Update My Safety Status",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/events/{{eventId}}/attendees/me/safety",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{attendeeToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"safe\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Safety Summary",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/events/{{eventId}}/attendees/safety/summary",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{organizerToken}}"
+              }
+            ]
           }
         }
       ]
@@ -312,8 +505,14 @@
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Authorization", "value": "Bearer {{attendeeToken}}" },
-              { "key": "Content-Type", "value": "application/json" }
+              {
+                "key": "Authorization",
+                "value": "Bearer {{attendeeToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
             ],
             "body": {
               "mode": "raw",
@@ -327,7 +526,10 @@
           "request": {
             "method": "DELETE",
             "header": [
-              { "key": "Authorization", "value": "Bearer {{attendeeToken}}" }
+              {
+                "key": "Authorization",
+                "value": "Bearer {{attendeeToken}}"
+              }
             ],
             "url": "{{baseUrl}}/api/events/{{eventId}}/comments/{{commentId}}"
           }
@@ -342,9 +544,18 @@
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Authorization", "value": "Bearer {{attendeeToken}}" },
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Idempotency-Key", "value": "purchase-{{ticketId}}-{{userId}}" }
+              {
+                "key": "Authorization",
+                "value": "Bearer {{attendeeToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Idempotency-Key",
+                "value": "purchase-{{ticketId}}-{{userId}}"
+              }
             ],
             "body": {
               "mode": "raw",
@@ -358,7 +569,10 @@
           "request": {
             "method": "GET",
             "header": [
-              { "key": "Authorization", "value": "Bearer {{attendeeToken}}" }
+              {
+                "key": "Authorization",
+                "value": "Bearer {{attendeeToken}}"
+              }
             ],
             "url": "{{baseUrl}}/api/payments/{{userId}}"
           }
@@ -368,9 +582,38 @@
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Authorization", "value": "Bearer {{adminToken}}" }
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
             ],
             "url": "{{baseUrl}}/api/payments/refund/{{paymentId}}"
+          }
+        },
+        {
+          "name": "List Flagged Payments",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/payments/flagged/list",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Refund Preview",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/payments/refund-preview/{{paymentId}}",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ]
           }
         }
       ]
@@ -383,7 +626,10 @@
           "request": {
             "method": "GET",
             "header": [
-              { "key": "Authorization", "value": "Bearer {{attendeeToken}}" }
+              {
+                "key": "Authorization",
+                "value": "Bearer {{attendeeToken}}"
+              }
             ],
             "url": "{{baseUrl}}/api/notifications"
           }
@@ -393,8 +639,14 @@
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Authorization", "value": "Bearer {{organizerToken}}" },
-              { "key": "Content-Type", "value": "application/json" }
+              {
+                "key": "Authorization",
+                "value": "Bearer {{organizerToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
             ],
             "body": {
               "mode": "raw",
@@ -408,9 +660,33 @@
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Authorization", "value": "Bearer {{attendeeToken}}" }
+              {
+                "key": "Authorization",
+                "value": "Bearer {{attendeeToken}}"
+              }
             ],
             "url": "{{baseUrl}}/api/notifications/{{notificationId}}/read"
+          }
+        },
+        {
+          "name": "Emergency Broadcast",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/notifications/emergency/broadcast",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{organizerToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"eventId\": {{eventId}},\n  \"message\": \"Emergency at venue. Please move to assembly point B.\",\n  \"emailSubject\": \"Emergency Alert\"\n}"
+            }
           }
         }
       ]
@@ -423,7 +699,10 @@
           "request": {
             "method": "GET",
             "header": [
-              { "key": "Authorization", "value": "Bearer {{organizerToken}}" }
+              {
+                "key": "Authorization",
+                "value": "Bearer {{organizerToken}}"
+              }
             ],
             "url": "{{baseUrl}}/api/analytics/events/{{eventId}}"
           }
@@ -433,7 +712,10 @@
           "request": {
             "method": "GET",
             "header": [
-              { "key": "Authorization", "value": "Bearer {{adminToken}}" }
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
             ],
             "url": "{{baseUrl}}/api/analytics/users"
           }
@@ -448,14 +730,358 @@
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Stripe-Signature", "value": "replace-with-real-signature" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Stripe-Signature",
+                "value": "replace-with-real-signature"
+              }
             ],
             "body": {
               "mode": "raw",
               "raw": "{\n  \"id\": \"evt_test_webhook\",\n  \"type\": \"payment_intent.succeeded\",\n  \"data\": {\n    \"object\": {\n      \"id\": \"pi_test_123\",\n      \"metadata\": {\n        \"ticketId\": \"1\",\n        \"eventId\": \"1\",\n        \"userId\": \"1\",\n        \"quantity\": \"1\"\n      }\n    }\n  }\n}"
             },
             "url": "{{baseUrl}}/api/webhooks/stripe"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Scholarships",
+      "item": [
+        {
+          "name": "Apply Scholarship",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/events/{{eventId}}/scholarships/tickets/{{ticketId}}/apply",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{attendeeToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"motivation\": \"I need support to attend this event and grow my skills.\"\n}"
+            }
+          }
+        },
+        {
+          "name": "List Scholarship Applications",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/events/{{eventId}}/scholarships",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{organizerToken}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Review Scholarship Application",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/events/{{eventId}}/scholarships/{{scholarshipApplicationId}}/review",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{organizerToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"approved\",\n  \"note\": \"Accepted for community impact.\"\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Team",
+      "item": [
+        {
+          "name": "List Team Members",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/events/{{eventId}}/team",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{organizerToken}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Add Team Member",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/events/{{eventId}}/team",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{organizerToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": {{userId}},\n  \"role\": \"Manager\",\n  \"approvalRequired\": true\n}"
+            }
+          }
+        },
+        {
+          "name": "Remove Team Member",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/events/{{eventId}}/team/{{teamMemberId}}",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{organizerToken}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Submit Approval Request",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/events/{{eventId}}/team/approvals/request",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{organizerToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"actionType\": \"event.update\",\n  \"payload\": {\n    \"featured\": true\n  }\n}"
+            }
+          }
+        },
+        {
+          "name": "List Approvals",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/events/{{eventId}}/team/approvals/list",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{organizerToken}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Resolve Approval",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/events/{{eventId}}/team/approvals/{{approvalId}}/resolve",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{organizerToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"approved\",\n  \"note\": \"Looks good.\"\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Outbox",
+      "item": [
+        {
+          "name": "List Outbox Events",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/outbox",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Process Outbox",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/outbox/process",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"limit\": 20\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Public",
+      "item": [
+        {
+          "name": "Transparency Dashboard",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/public/transparency"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Privacy",
+      "item": [
+        {
+          "name": "Log Consent",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/privacy/consents",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{attendeeToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"scope\": \"marketing_email\",\n  \"granted\": true,\n  \"metadata\": {\"source\": \"settings\"}\n}"
+            }
+          }
+        },
+        {
+          "name": "List My Consents",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/privacy/consents/me",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{attendeeToken}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Request Data Export",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/privacy/requests/export",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{attendeeToken}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Request Data Delete",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/privacy/requests/delete",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{attendeeToken}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "List My Privacy Requests",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/privacy/requests/me",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{attendeeToken}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Resolve Privacy Request",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/privacy/requests/{{privacyRequestId}}/resolve",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"completed\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Run Retention Job",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/privacy/retention/run",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"days\": 365\n}"
+            }
           }
         }
       ]

@@ -7,14 +7,19 @@ const router = Router();
 
 // Get payments by user (self or admin)
 router.get('/:userId', auth(), param('userId').isInt(), ctrl.listByUser);
+router.get('/flagged/list', auth(['Admin']), ctrl.listFlagged);
 
 // Purchase ticket -> returns clientSecret for PaymentIntent
 router.post('/purchase/:ticketId',
   auth(),
   param('ticketId').isInt(),
   body('quantity').isInt({ min: 1, max: 10 }),
+  body('donationAmount').optional().isFloat({ min: 0 }),
   ctrl.purchase
 );
+
+// Preview policy-based refund amount before executing refund
+router.get('/refund-preview/:id', auth(), param('id').isInt(), ctrl.refundPreview);
 
 // Refund payment (Admin or Organizer that owns event)
 router.post('/refund/:id', auth(), param('id').isInt(), ctrl.refund);

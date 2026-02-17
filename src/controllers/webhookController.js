@@ -6,6 +6,7 @@ const fs = require('fs');
 const path = require('path');
 const { sendEmail } = require('../utils/email');
 const { signCheckInToken } = require('../utils/checkinToken');
+const { enqueueOutboxEvent } = require('../utils/outbox');
 
 const parseWebhookBody = (body) => {
   if (Buffer.isBuffer(body)) {
@@ -54,6 +55,12 @@ const stripeWebhook = async (req, res) => {
           await generateAndEmailTicket({ attendee, ticket });
         }
       }
+
+      await enqueueOutboxEvent('payment.succeeded', {
+        paymentId: payment.id,
+        stripePaymentIntent: intent.id,
+        quantity
+      });
     }
   } else if (event.type === 'payment_intent.payment_failed') {
     const intent = event.data.object;

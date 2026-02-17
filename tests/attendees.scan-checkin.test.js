@@ -15,6 +15,10 @@ jest.mock('../src/utils/checkinToken', () => ({
   verifyCheckInToken: jest.fn()
 }));
 
+jest.mock('../src/utils/outbox', () => ({
+  enqueueOutboxEvent: jest.fn(async () => undefined)
+}));
+
 const jwt = require('jsonwebtoken');
 const request = require('supertest');
 const app = require('../src/app');

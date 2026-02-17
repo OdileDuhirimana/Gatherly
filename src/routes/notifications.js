@@ -18,6 +18,14 @@ router.post('/send',
   body('emailSubject').optional().isString(),
   ctrl.send
 );
+ 
+router.post('/emergency/broadcast',
+  auth(['Organizer', 'Admin']),
+  body('eventId').isInt({ min: 1 }),
+  body('message').isString().isLength({ min: 1, max: 5000 }),
+  body('emailSubject').optional().isString(),
+  ctrl.emergencyBroadcast
+);
 
 // Mark as read
 router.post('/:id/read', auth(), param('id').isInt(), ctrl.markRead);

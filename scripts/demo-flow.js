@@ -167,6 +167,15 @@ const run = async () => {
     console.log('commentId', result.data.data.id);
   });
 
+  await step('Attendee updates emergency safety status', async () => {
+    const result = await request('POST', `/api/events/${state.eventId}/attendees/me/safety`, {
+      token: state.attendeeToken,
+      body: { status: 'safe' }
+    });
+    assertStatus(result, [200], 'Update safety status');
+    console.log('safetyStatus', result.data.data.safetyStatus);
+  });
+
   await step('Organizer checks attendee in by scanning signed QR token', async () => {
     if (!state.checkInToken) {
       throw new Error('Missing check-in token in attendee registration response');
@@ -209,6 +218,12 @@ const run = async () => {
 
     assertStatus(result, [200], 'Event analytics');
     console.log('analytics', result.data.data);
+  });
+
+  await step('Public transparency dashboard', async () => {
+    const result = await request('GET', '/api/public/transparency');
+    assertStatus(result, [200], 'Public transparency');
+    console.log('transparency', result.data.data);
   });
 
   console.log('\nDemo flow completed successfully.');

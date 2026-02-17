@@ -8,6 +8,7 @@ const router = Router();
 // Public list and get
 router.get('/', ctrl.list);
 router.get('/:id', param('id').isInt(), ctrl.getOne);
+router.get('/:id/accessibility', param('id').isInt(), ctrl.getAccessibility);
 
 // Organizer/Admin create
 router.post('/',
@@ -19,6 +20,7 @@ router.post('/',
   body('location').optional().isString(),
   body('images').optional().isArray(),
   body('tags').optional().isArray(),
+  body('accessibility').optional().isObject(),
   body('recurringRule').optional().isString(),
   ctrl.create
 );
@@ -34,6 +36,7 @@ router.put('/:id',
   body('location').optional().isString(),
   body('images').optional().isArray(),
   body('tags').optional().isArray(),
+  body('accessibility').optional().isObject(),
   body('recurringRule').optional().isString(),
   body('published').optional().isBoolean(),
   body('featured').optional().isBoolean(),

@@ -12,16 +12,51 @@
     }
   ],
   "tags": [
-    { "name": "System" },
-    { "name": "Auth" },
-    { "name": "Events" },
-    { "name": "Tickets" },
-    { "name": "Attendees" },
-    { "name": "Comments" },
-    { "name": "Payments" },
-    { "name": "Notifications" },
-    { "name": "Analytics" },
-    { "name": "Webhooks" }
+    {
+      "name": "System"
+    },
+    {
+      "name": "Auth"
+    },
+    {
+      "name": "Events"
+    },
+    {
+      "name": "Tickets"
+    },
+    {
+      "name": "Attendees"
+    },
+    {
+      "name": "Comments"
+    },
+    {
+      "name": "Payments"
+    },
+    {
+      "name": "Notifications"
+    },
+    {
+      "name": "Analytics"
+    },
+    {
+      "name": "Webhooks"
+    },
+    {
+      "name": "Scholarships"
+    },
+    {
+      "name": "Team"
+    },
+    {
+      "name": "Outbox"
+    },
+    {
+      "name": "Public"
+    },
+    {
+      "name": "Privacy"
+    }
   ],
   "components": {
     "securitySchemes": {
@@ -35,17 +70,30 @@
       "ErrorResponse": {
         "type": "object",
         "properties": {
-          "error": { "type": "string" },
-          "details": { "type": "object", "nullable": true }
+          "error": {
+            "type": "string"
+          },
+          "details": {
+            "type": "object",
+            "nullable": true
+          }
         }
       },
       "ValidationError": {
         "type": "object",
         "properties": {
-          "type": { "type": "string" },
-          "msg": { "type": "string" },
-          "path": { "type": "string" },
-          "location": { "type": "string" }
+          "type": {
+            "type": "string"
+          },
+          "msg": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          },
+          "location": {
+            "type": "string"
+          }
         }
       },
       "ValidationErrorResponse": {
@@ -53,142 +101,346 @@
         "properties": {
           "errors": {
             "type": "array",
-            "items": { "$ref": "#/components/schemas/ValidationError" }
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            }
           }
         }
       },
       "User": {
         "type": "object",
         "properties": {
-          "id": { "type": "integer" },
-          "name": { "type": "string" },
-          "email": { "type": "string", "format": "email" },
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
           "role": {
             "type": "string",
-            "enum": ["Admin", "Organizer", "Attendee"]
+            "enum": [
+              "Admin",
+              "Organizer",
+              "Attendee"
+            ]
           }
         }
       },
       "RegisterRequest": {
         "type": "object",
-        "required": ["name", "email", "password"],
+        "required": [
+          "name",
+          "email",
+          "password"
+        ],
         "properties": {
-          "name": { "type": "string", "minLength": 2 },
-          "email": { "type": "string", "format": "email" },
-          "password": { "type": "string", "minLength": 6 }
+          "name": {
+            "type": "string",
+            "minLength": 2
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "minLength": 6
+          }
         }
       },
       "LoginRequest": {
         "type": "object",
-        "required": ["email", "password"],
+        "required": [
+          "email",
+          "password"
+        ],
         "properties": {
-          "email": { "type": "string", "format": "email" },
-          "password": { "type": "string", "minLength": 6 }
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "minLength": 6
+          }
         }
       },
       "AuthResponse": {
         "type": "object",
         "properties": {
-          "token": { "type": "string" },
-          "user": { "$ref": "#/components/schemas/User" }
+          "token": {
+            "type": "string"
+          },
+          "user": {
+            "$ref": "#/components/schemas/User"
+          }
         }
       },
       "ForgotPasswordRequest": {
         "type": "object",
-        "required": ["email"],
+        "required": [
+          "email"
+        ],
         "properties": {
-          "email": { "type": "string", "format": "email" }
+          "email": {
+            "type": "string",
+            "format": "email"
+          }
         }
       },
       "ResetPasswordRequest": {
         "type": "object",
-        "required": ["token", "password"],
+        "required": [
+          "token",
+          "password"
+        ],
         "properties": {
-          "token": { "type": "string" },
-          "password": { "type": "string", "minLength": 6 }
+          "token": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string",
+            "minLength": 6
+          }
         }
       },
       "Event": {
         "type": "object",
         "properties": {
-          "id": { "type": "integer" },
-          "organizerId": { "type": "integer" },
-          "title": { "type": "string" },
-          "description": { "type": "string", "nullable": true },
-          "category": { "type": "string", "nullable": true },
-          "location": { "type": "string", "nullable": true },
-          "images": { "type": "array", "items": { "type": "string" } },
-          "tags": { "type": "array", "items": { "type": "string" } },
-          "startDate": { "type": "string", "format": "date-time" },
-          "endDate": { "type": "string", "format": "date-time" },
-          "recurringRule": { "type": "string", "nullable": true },
-          "published": { "type": "boolean" },
-          "featured": { "type": "boolean" }
+          "id": {
+            "type": "integer"
+          },
+          "organizerId": {
+            "type": "integer"
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "category": {
+            "type": "string",
+            "nullable": true
+          },
+          "location": {
+            "type": "string",
+            "nullable": true
+          },
+          "images": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "recurringRule": {
+            "type": "string",
+            "nullable": true
+          },
+          "published": {
+            "type": "boolean"
+          },
+          "featured": {
+            "type": "boolean"
+          }
         }
       },
       "EventCreateRequest": {
         "type": "object",
-        "required": ["title", "startDate", "endDate"],
+        "required": [
+          "title",
+          "startDate",
+          "endDate"
+        ],
         "properties": {
-          "title": { "type": "string", "minLength": 3 },
-          "description": { "type": "string" },
-          "category": { "type": "string" },
-          "location": { "type": "string" },
-          "images": { "type": "array", "items": { "type": "string" } },
-          "tags": { "type": "array", "items": { "type": "string" } },
-          "startDate": { "type": "string", "format": "date-time" },
-          "endDate": { "type": "string", "format": "date-time" },
-          "recurringRule": { "type": "string" },
-          "published": { "type": "boolean" },
-          "featured": { "type": "boolean" }
+          "title": {
+            "type": "string",
+            "minLength": 3
+          },
+          "description": {
+            "type": "string"
+          },
+          "category": {
+            "type": "string"
+          },
+          "location": {
+            "type": "string"
+          },
+          "images": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "recurringRule": {
+            "type": "string"
+          },
+          "published": {
+            "type": "boolean"
+          },
+          "featured": {
+            "type": "boolean"
+          }
         }
       },
       "EventUpdateRequest": {
         "type": "object",
         "properties": {
-          "title": { "type": "string", "minLength": 3 },
-          "description": { "type": "string" },
-          "category": { "type": "string" },
-          "location": { "type": "string" },
-          "images": { "type": "array", "items": { "type": "string" } },
-          "tags": { "type": "array", "items": { "type": "string" } },
-          "startDate": { "type": "string", "format": "date-time" },
-          "endDate": { "type": "string", "format": "date-time" },
-          "recurringRule": { "type": "string" },
-          "published": { "type": "boolean" },
-          "featured": { "type": "boolean" }
+          "title": {
+            "type": "string",
+            "minLength": 3
+          },
+          "description": {
+            "type": "string"
+          },
+          "category": {
+            "type": "string"
+          },
+          "location": {
+            "type": "string"
+          },
+          "images": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "recurringRule": {
+            "type": "string"
+          },
+          "published": {
+            "type": "boolean"
+          },
+          "featured": {
+            "type": "boolean"
+          }
         }
       },
       "Ticket": {
         "type": "object",
         "properties": {
-          "id": { "type": "integer" },
-          "eventId": { "type": "integer" },
+          "id": {
+            "type": "integer"
+          },
+          "eventId": {
+            "type": "integer"
+          },
           "type": {
             "type": "string",
-            "enum": ["Regular", "VIP", "EarlyBird", "Group"]
+            "enum": [
+              "Regular",
+              "VIP",
+              "EarlyBird",
+              "Group"
+            ]
           },
-          "price": { "type": "number", "format": "float" },
-          "currency": { "type": "string" },
-          "quantity": { "type": "integer" },
-          "sold": { "type": "integer" },
-          "limitPerUser": { "type": "integer" },
-          "expiresAt": { "type": "string", "format": "date-time", "nullable": true }
+          "price": {
+            "type": "number",
+            "format": "float"
+          },
+          "currency": {
+            "type": "string"
+          },
+          "quantity": {
+            "type": "integer"
+          },
+          "sold": {
+            "type": "integer"
+          },
+          "limitPerUser": {
+            "type": "integer"
+          },
+          "expiresAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
         }
       },
       "TicketCreateRequest": {
         "type": "object",
-        "required": ["type", "price", "quantity"],
+        "required": [
+          "type",
+          "price",
+          "quantity"
+        ],
         "properties": {
           "type": {
             "type": "string",
-            "enum": ["Regular", "VIP", "EarlyBird", "Group"]
+            "enum": [
+              "Regular",
+              "VIP",
+              "EarlyBird",
+              "Group"
+            ]
           },
-          "price": { "type": "number", "format": "float" },
-          "currency": { "type": "string", "default": "usd" },
-          "quantity": { "type": "integer", "minimum": 0 },
-          "limitPerUser": { "type": "integer", "minimum": 1 },
-          "expiresAt": { "type": "string", "format": "date-time" }
+          "price": {
+            "type": "number",
+            "format": "float"
+          },
+          "currency": {
+            "type": "string",
+            "default": "usd"
+          },
+          "quantity": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "limitPerUser": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "expiresAt": {
+            "type": "string",
+            "format": "date-time"
+          }
         }
       },
       "TicketUpdateRequest": {
@@ -196,106 +448,218 @@
         "properties": {
           "type": {
             "type": "string",
-            "enum": ["Regular", "VIP", "EarlyBird", "Group"]
+            "enum": [
+              "Regular",
+              "VIP",
+              "EarlyBird",
+              "Group"
+            ]
           },
-          "price": { "type": "number", "format": "float" },
-          "currency": { "type": "string" },
-          "quantity": { "type": "integer", "minimum": 0 },
-          "limitPerUser": { "type": "integer", "minimum": 1 },
-          "expiresAt": { "type": "string", "format": "date-time" }
+          "price": {
+            "type": "number",
+            "format": "float"
+          },
+          "currency": {
+            "type": "string"
+          },
+          "quantity": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "limitPerUser": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "expiresAt": {
+            "type": "string",
+            "format": "date-time"
+          }
         }
       },
       "Attendee": {
         "type": "object",
         "properties": {
-          "id": { "type": "integer" },
-          "userId": { "type": "integer" },
-          "eventId": { "type": "integer" },
-          "ticketId": { "type": "integer" },
-          "checkedIn": { "type": "boolean" },
-          "waitlisted": { "type": "boolean" },
-          "vip": { "type": "boolean" }
+          "id": {
+            "type": "integer"
+          },
+          "userId": {
+            "type": "integer"
+          },
+          "eventId": {
+            "type": "integer"
+          },
+          "ticketId": {
+            "type": "integer"
+          },
+          "checkedIn": {
+            "type": "boolean"
+          },
+          "waitlisted": {
+            "type": "boolean"
+          },
+          "vip": {
+            "type": "boolean"
+          }
         }
       },
       "Comment": {
         "type": "object",
         "properties": {
-          "id": { "type": "integer" },
-          "eventId": { "type": "integer" },
-          "userId": { "type": "integer" },
-          "content": { "type": "string" },
-          "rating": { "type": "integer", "minimum": 1, "maximum": 5 }
+          "id": {
+            "type": "integer"
+          },
+          "eventId": {
+            "type": "integer"
+          },
+          "userId": {
+            "type": "integer"
+          },
+          "content": {
+            "type": "string"
+          },
+          "rating": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 5
+          }
         }
       },
       "Notification": {
         "type": "object",
         "properties": {
-          "id": { "type": "integer" },
-          "userId": { "type": "integer", "nullable": true },
-          "eventId": { "type": "integer", "nullable": true },
-          "type": { "type": "string" },
-          "message": { "type": "string" },
-          "read": { "type": "boolean" }
+          "id": {
+            "type": "integer"
+          },
+          "userId": {
+            "type": "integer",
+            "nullable": true
+          },
+          "eventId": {
+            "type": "integer",
+            "nullable": true
+          },
+          "type": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "read": {
+            "type": "boolean"
+          }
         }
       },
       "Payment": {
         "type": "object",
         "properties": {
-          "id": { "type": "integer" },
-          "ticketId": { "type": "integer" },
-          "userId": { "type": "integer" },
-          "amount": { "type": "string" },
-          "currency": { "type": "string" },
+          "id": {
+            "type": "integer"
+          },
+          "ticketId": {
+            "type": "integer"
+          },
+          "userId": {
+            "type": "integer"
+          },
+          "amount": {
+            "type": "string"
+          },
+          "currency": {
+            "type": "string"
+          },
           "status": {
             "type": "string",
-            "enum": ["pending", "succeeded", "failed", "refunded", "partial_refund"]
+            "enum": [
+              "pending",
+              "succeeded",
+              "failed",
+              "refunded",
+              "partial_refund"
+            ]
           },
-          "stripePaymentId": { "type": "string", "nullable": true }
+          "stripePaymentId": {
+            "type": "string",
+            "nullable": true
+          }
         }
       },
       "PurchaseRequest": {
         "type": "object",
-        "required": ["quantity"],
+        "required": [
+          "quantity"
+        ],
         "properties": {
-          "quantity": { "type": "integer", "minimum": 1, "maximum": 10 }
+          "quantity": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10
+          }
         }
       },
       "PurchaseResponse": {
         "type": "object",
         "properties": {
-          "clientSecret": { "type": "string" },
-          "paymentId": { "type": "integer" }
+          "clientSecret": {
+            "type": "string"
+          },
+          "paymentId": {
+            "type": "integer"
+          }
         }
       },
       "NotificationSendRequest": {
         "type": "object",
-        "required": ["type", "message"],
+        "required": [
+          "type",
+          "message"
+        ],
         "properties": {
-          "type": { "type": "string" },
-          "message": { "type": "string" },
-          "userId": { "type": "integer" },
-          "eventId": { "type": "integer" },
-          "emailSubject": { "type": "string" }
+          "type": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "userId": {
+            "type": "integer"
+          },
+          "eventId": {
+            "type": "integer"
+          },
+          "emailSubject": {
+            "type": "string"
+          }
         }
       },
       "CheckinRequest": {
         "type": "object",
-        "required": ["checkedIn"],
+        "required": [
+          "checkedIn"
+        ],
         "properties": {
-          "checkedIn": { "type": "boolean" }
+          "checkedIn": {
+            "type": "boolean"
+          }
         }
       },
       "CheckinScanRequest": {
         "type": "object",
-        "required": ["token"],
+        "required": [
+          "token"
+        ],
         "properties": {
-          "token": { "type": "string", "minLength": 20 }
+          "token": {
+            "type": "string",
+            "minLength": 20
+          }
         }
       },
       "AttendeeRegisterResponse": {
         "type": "object",
         "properties": {
-          "data": { "$ref": "#/components/schemas/Attendee" },
+          "data": {
+            "$ref": "#/components/schemas/Attendee"
+          },
           "checkInToken": {
             "type": "string",
             "description": "Signed QR payload used by scanner endpoint for anti-fraud check-in."
@@ -304,28 +668,53 @@
       },
       "CommentCreateRequest": {
         "type": "object",
-        "required": ["content"],
+        "required": [
+          "content"
+        ],
         "properties": {
-          "content": { "type": "string", "minLength": 1 },
-          "rating": { "type": "integer", "minimum": 1, "maximum": 5 }
+          "content": {
+            "type": "string",
+            "minLength": 1
+          },
+          "rating": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 5
+          }
         }
       },
       "AnalyticsEventStats": {
         "type": "object",
         "properties": {
-          "sold": { "type": "integer" },
-          "capacity": { "type": "integer" },
-          "grossRevenue": { "type": "number" },
-          "attendance": { "type": "integer" },
-          "checkedIn": { "type": "integer" }
+          "sold": {
+            "type": "integer"
+          },
+          "capacity": {
+            "type": "integer"
+          },
+          "grossRevenue": {
+            "type": "number"
+          },
+          "attendance": {
+            "type": "integer"
+          },
+          "checkedIn": {
+            "type": "integer"
+          }
         }
       },
       "AnalyticsUsersMetrics": {
         "type": "object",
         "properties": {
-          "usersCount": { "type": "integer" },
-          "eventsCount": { "type": "integer" },
-          "paymentsCount": { "type": "integer" }
+          "usersCount": {
+            "type": "integer"
+          },
+          "eventsCount": {
+            "type": "integer"
+          },
+          "paymentsCount": {
+            "type": "integer"
+          }
         }
       }
     }
@@ -333,7 +722,9 @@
   "paths": {
     "/health": {
       "get": {
-        "tags": ["System"],
+        "tags": [
+          "System"
+        ],
         "summary": "Health check",
         "responses": {
           "200": {
@@ -344,22 +735,30 @@
     },
     "/api": {
       "get": {
-        "tags": ["System"],
+        "tags": [
+          "System"
+        ],
         "summary": "API metadata",
         "responses": {
-          "200": { "description": "API info" }
+          "200": {
+            "description": "API info"
+          }
         }
       }
     },
     "/api/auth/register": {
       "post": {
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "summary": "Self-register attendee account",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
-              "schema": { "$ref": "#/components/schemas/RegisterRequest" }
+              "schema": {
+                "$ref": "#/components/schemas/RegisterRequest"
+              }
             }
           }
         },
@@ -368,7 +767,9 @@
             "description": "Registered",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/AuthResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/AuthResponse"
+                }
               }
             }
           },
@@ -378,8 +779,12 @@
               "application/json": {
                 "schema": {
                   "oneOf": [
-                    { "$ref": "#/components/schemas/ValidationErrorResponse" },
-                    { "$ref": "#/components/schemas/ErrorResponse" }
+                    {
+                      "$ref": "#/components/schemas/ValidationErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    }
                   ]
                 }
               }
@@ -390,13 +795,17 @@
     },
     "/api/auth/login": {
       "post": {
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "summary": "Login and get JWT",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
-              "schema": { "$ref": "#/components/schemas/LoginRequest" }
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
             }
           }
         },
@@ -405,7 +814,9 @@
             "description": "Logged in",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/AuthResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/AuthResponse"
+                }
               }
             }
           },
@@ -415,8 +826,12 @@
               "application/json": {
                 "schema": {
                   "oneOf": [
-                    { "$ref": "#/components/schemas/ValidationErrorResponse" },
-                    { "$ref": "#/components/schemas/ErrorResponse" }
+                    {
+                      "$ref": "#/components/schemas/ValidationErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    }
                   ]
                 }
               }
@@ -427,9 +842,15 @@
     },
     "/api/auth/me": {
       "get": {
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "summary": "Get current user",
-        "security": [{ "bearerAuth": [] }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "Current user",
@@ -438,7 +859,9 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "user": { "$ref": "#/components/schemas/User" }
+                    "user": {
+                      "$ref": "#/components/schemas/User"
+                    }
                   }
                 }
               }
@@ -448,7 +871,9 @@
             "description": "Unauthorized",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
               }
             }
           }
@@ -457,23 +882,31 @@
     },
     "/api/auth/forgot-password": {
       "post": {
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "summary": "Request password reset",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
-              "schema": { "$ref": "#/components/schemas/ForgotPasswordRequest" }
+              "schema": {
+                "$ref": "#/components/schemas/ForgotPasswordRequest"
+              }
             }
           }
         },
         "responses": {
-          "200": { "description": "Reset flow acknowledged" },
+          "200": {
+            "description": "Reset flow acknowledged"
+          },
           "400": {
             "description": "Validation error",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ValidationErrorResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationErrorResponse"
+                }
               }
             }
           }
@@ -482,26 +915,36 @@
     },
     "/api/auth/reset-password": {
       "post": {
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "summary": "Reset password",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
-              "schema": { "$ref": "#/components/schemas/ResetPasswordRequest" }
+              "schema": {
+                "$ref": "#/components/schemas/ResetPasswordRequest"
+              }
             }
           }
         },
         "responses": {
-          "200": { "description": "Password reset successful" },
+          "200": {
+            "description": "Password reset successful"
+          },
           "400": {
             "description": "Validation error or invalid token",
             "content": {
               "application/json": {
                 "schema": {
                   "oneOf": [
-                    { "$ref": "#/components/schemas/ValidationErrorResponse" },
-                    { "$ref": "#/components/schemas/ErrorResponse" }
+                    {
+                      "$ref": "#/components/schemas/ValidationErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    }
                   ]
                 }
               }
@@ -512,15 +955,55 @@
     },
     "/api/events": {
       "get": {
-        "tags": ["Events"],
+        "tags": [
+          "Events"
+        ],
         "summary": "List events",
         "parameters": [
-          { "name": "page", "in": "query", "schema": { "type": "integer", "default": 1 } },
-          { "name": "limit", "in": "query", "schema": { "type": "integer", "default": 20 } },
-          { "name": "q", "in": "query", "schema": { "type": "string" } },
-          { "name": "category", "in": "query", "schema": { "type": "string" } },
-          { "name": "featured", "in": "query", "schema": { "type": "boolean" } },
-          { "name": "published", "in": "query", "schema": { "type": "boolean" } }
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 1
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 20
+            }
+          },
+          {
+            "name": "q",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "category",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "featured",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "published",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          }
         ],
         "responses": {
           "200": {
@@ -532,14 +1015,22 @@
                   "properties": {
                     "data": {
                       "type": "array",
-                      "items": { "$ref": "#/components/schemas/Event" }
+                      "items": {
+                        "$ref": "#/components/schemas/Event"
+                      }
                     },
                     "pagination": {
                       "type": "object",
                       "properties": {
-                        "page": { "type": "integer" },
-                        "limit": { "type": "integer" },
-                        "total": { "type": "integer" }
+                        "page": {
+                          "type": "integer"
+                        },
+                        "limit": {
+                          "type": "integer"
+                        },
+                        "total": {
+                          "type": "integer"
+                        }
                       }
                     }
                   }
@@ -550,14 +1041,22 @@
         }
       },
       "post": {
-        "tags": ["Events"],
+        "tags": [
+          "Events"
+        ],
         "summary": "Create event",
-        "security": [{ "bearerAuth": [] }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
-              "schema": { "$ref": "#/components/schemas/EventCreateRequest" }
+              "schema": {
+                "$ref": "#/components/schemas/EventCreateRequest"
+              }
             }
           }
         },
@@ -569,7 +1068,9 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "data": { "$ref": "#/components/schemas/Event" }
+                    "data": {
+                      "$ref": "#/components/schemas/Event"
+                    }
                   }
                 }
               }
@@ -579,25 +1080,35 @@
             "description": "Validation error",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ValidationErrorResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationErrorResponse"
+                }
               }
             }
           },
-          "401": { "description": "Unauthorized" },
-          "403": { "description": "Forbidden" }
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
         }
       }
     },
     "/api/events/{id}": {
       "get": {
-        "tags": ["Events"],
+        "tags": [
+          "Events"
+        ],
         "summary": "Get event details",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "schema": { "type": "integer" }
+            "schema": {
+              "type": "integer"
+            }
           }
         ],
         "responses": {
@@ -608,73 +1119,117 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "data": { "$ref": "#/components/schemas/Event" }
+                    "data": {
+                      "$ref": "#/components/schemas/Event"
+                    }
                   }
                 }
               }
             }
           },
-          "404": { "description": "Not found" }
+          "404": {
+            "description": "Not found"
+          }
         }
       },
       "put": {
-        "tags": ["Events"],
+        "tags": [
+          "Events"
+        ],
         "summary": "Update event",
-        "security": [{ "bearerAuth": [] }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "schema": { "type": "integer" }
+            "schema": {
+              "type": "integer"
+            }
           }
         ],
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
-              "schema": { "$ref": "#/components/schemas/EventUpdateRequest" }
+              "schema": {
+                "$ref": "#/components/schemas/EventUpdateRequest"
+              }
             }
           }
         },
         "responses": {
-          "200": { "description": "Updated" },
-          "400": { "description": "Validation error" },
-          "401": { "description": "Unauthorized" },
-          "403": { "description": "Forbidden" },
-          "404": { "description": "Event not found" }
+          "200": {
+            "description": "Updated"
+          },
+          "400": {
+            "description": "Validation error"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Event not found"
+          }
         }
       },
       "delete": {
-        "tags": ["Events"],
+        "tags": [
+          "Events"
+        ],
         "summary": "Delete event",
-        "security": [{ "bearerAuth": [] }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "schema": { "type": "integer" }
+            "schema": {
+              "type": "integer"
+            }
           }
         ],
         "responses": {
-          "204": { "description": "Deleted" },
-          "401": { "description": "Unauthorized" },
-          "403": { "description": "Forbidden" },
-          "404": { "description": "Event not found" }
+          "204": {
+            "description": "Deleted"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Event not found"
+          }
         }
       }
     },
     "/api/events/{eventId}/tickets": {
       "get": {
-        "tags": ["Tickets"],
+        "tags": [
+          "Tickets"
+        ],
         "summary": "List tickets for event",
         "parameters": [
           {
             "name": "eventId",
             "in": "path",
             "required": true,
-            "schema": { "type": "integer" }
+            "schema": {
+              "type": "integer"
+            }
           }
         ],
         "responses": {
@@ -687,7 +1242,9 @@
                   "properties": {
                     "data": {
                       "type": "array",
-                      "items": { "$ref": "#/components/schemas/Ticket" }
+                      "items": {
+                        "$ref": "#/components/schemas/Ticket"
+                      }
                     }
                   }
                 }
@@ -697,82 +1254,175 @@
         }
       },
       "post": {
-        "tags": ["Tickets"],
+        "tags": [
+          "Tickets"
+        ],
         "summary": "Create ticket",
-        "security": [{ "bearerAuth": [] }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "eventId",
             "in": "path",
             "required": true,
-            "schema": { "type": "integer" }
+            "schema": {
+              "type": "integer"
+            }
           }
         ],
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
-              "schema": { "$ref": "#/components/schemas/TicketCreateRequest" }
+              "schema": {
+                "$ref": "#/components/schemas/TicketCreateRequest"
+              }
             }
           }
         },
         "responses": {
-          "201": { "description": "Ticket created" },
-          "400": { "description": "Validation error" },
-          "401": { "description": "Unauthorized" },
-          "403": { "description": "Forbidden" },
-          "404": { "description": "Event not found" }
+          "201": {
+            "description": "Ticket created"
+          },
+          "400": {
+            "description": "Validation error"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Event not found"
+          }
         }
       }
     },
     "/api/events/{eventId}/tickets/{ticketId}": {
       "put": {
-        "tags": ["Tickets"],
+        "tags": [
+          "Tickets"
+        ],
         "summary": "Update ticket",
-        "security": [{ "bearerAuth": [] }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
-          { "name": "eventId", "in": "path", "required": true, "schema": { "type": "integer" } },
-          { "name": "ticketId", "in": "path", "required": true, "schema": { "type": "integer" } }
+          {
+            "name": "eventId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "ticketId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
         ],
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
-              "schema": { "$ref": "#/components/schemas/TicketUpdateRequest" }
+              "schema": {
+                "$ref": "#/components/schemas/TicketUpdateRequest"
+              }
             }
           }
         },
         "responses": {
-          "200": { "description": "Ticket updated" },
-          "400": { "description": "Validation error" },
-          "401": { "description": "Unauthorized" },
-          "403": { "description": "Forbidden" },
-          "404": { "description": "Not found" }
+          "200": {
+            "description": "Ticket updated"
+          },
+          "400": {
+            "description": "Validation error"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not found"
+          }
         }
       },
       "delete": {
-        "tags": ["Tickets"],
+        "tags": [
+          "Tickets"
+        ],
         "summary": "Delete ticket",
-        "security": [{ "bearerAuth": [] }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
-          { "name": "eventId", "in": "path", "required": true, "schema": { "type": "integer" } },
-          { "name": "ticketId", "in": "path", "required": true, "schema": { "type": "integer" } }
+          {
+            "name": "eventId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "ticketId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
         ],
         "responses": {
-          "204": { "description": "Deleted" },
-          "401": { "description": "Unauthorized" },
-          "403": { "description": "Forbidden" },
-          "404": { "description": "Not found" }
+          "204": {
+            "description": "Deleted"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not found"
+          }
         }
       }
     },
     "/api/events/{eventId}/attendees": {
       "get": {
-        "tags": ["Attendees"],
+        "tags": [
+          "Attendees"
+        ],
         "summary": "List attendees for event",
-        "security": [{ "bearerAuth": [] }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
-          { "name": "eventId", "in": "path", "required": true, "schema": { "type": "integer" } }
+          {
+            "name": "eventId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
         ],
         "responses": {
           "200": {
@@ -782,25 +1432,49 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "data": { "type": "array", "items": { "$ref": "#/components/schemas/Attendee" } }
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Attendee"
+                      }
+                    }
                   }
                 }
               }
             }
           },
-          "401": { "description": "Unauthorized" },
-          "403": { "description": "Forbidden" },
-          "404": { "description": "Event not found" }
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Event not found"
+          }
         }
       }
     },
     "/api/events/{eventId}/attendees/register": {
       "post": {
-        "tags": ["Attendees"],
+        "tags": [
+          "Attendees"
+        ],
         "summary": "Register current user as attendee",
-        "security": [{ "bearerAuth": [] }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
-          { "name": "eventId", "in": "path", "required": true, "schema": { "type": "integer" } }
+          {
+            "name": "eventId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
         ],
         "requestBody": {
           "required": true,
@@ -808,9 +1482,14 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["ticketId"],
+                "required": [
+                  "ticketId"
+                ],
                 "properties": {
-                  "ticketId": { "type": "integer", "minimum": 1 }
+                  "ticketId": {
+                    "type": "integer",
+                    "minimum": 1
+                  }
                 }
               }
             }
@@ -821,91 +1500,195 @@
             "description": "Attendee created",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/AttendeeRegisterResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/AttendeeRegisterResponse"
+                }
               }
             }
           },
-          "400": { "description": "Validation/business rule error" },
-          "401": { "description": "Unauthorized" },
-          "404": { "description": "Ticket not found" }
+          "400": {
+            "description": "Validation/business rule error"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Ticket not found"
+          }
         }
       }
     },
     "/api/events/{eventId}/attendees/scan/checkin": {
       "post": {
-        "tags": ["Attendees"],
+        "tags": [
+          "Attendees"
+        ],
         "summary": "Check-in attendee by scanning signed QR token",
-        "security": [{ "bearerAuth": [] }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
-          { "name": "eventId", "in": "path", "required": true, "schema": { "type": "integer" } }
+          {
+            "name": "eventId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
         ],
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
-              "schema": { "$ref": "#/components/schemas/CheckinScanRequest" }
+              "schema": {
+                "$ref": "#/components/schemas/CheckinScanRequest"
+              }
             }
           }
         },
         "responses": {
-          "200": { "description": "Attendee checked in" },
-          "400": { "description": "Validation/token error" },
-          "401": { "description": "Unauthorized" },
-          "403": { "description": "Forbidden" },
-          "404": { "description": "Event or attendee not found" },
-          "409": { "description": "Already checked-in or waitlisted attendee" }
+          "200": {
+            "description": "Attendee checked in"
+          },
+          "400": {
+            "description": "Validation/token error"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Event or attendee not found"
+          },
+          "409": {
+            "description": "Already checked-in or waitlisted attendee"
+          }
         }
       }
     },
     "/api/events/{eventId}/attendees/{attendeeId}/checkin": {
       "post": {
-        "tags": ["Attendees"],
+        "tags": [
+          "Attendees"
+        ],
         "summary": "Check-in or check-out attendee",
-        "security": [{ "bearerAuth": [] }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
-          { "name": "eventId", "in": "path", "required": true, "schema": { "type": "integer" } },
-          { "name": "attendeeId", "in": "path", "required": true, "schema": { "type": "integer" } }
+          {
+            "name": "eventId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "attendeeId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
         ],
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
-              "schema": { "$ref": "#/components/schemas/CheckinRequest" }
+              "schema": {
+                "$ref": "#/components/schemas/CheckinRequest"
+              }
             }
           }
         },
         "responses": {
-          "200": { "description": "Attendee updated" },
-          "400": { "description": "Validation error" },
-          "401": { "description": "Unauthorized" },
-          "403": { "description": "Forbidden" },
-          "404": { "description": "Not found" }
+          "200": {
+            "description": "Attendee updated"
+          },
+          "400": {
+            "description": "Validation error"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not found"
+          }
         }
       }
     },
     "/api/events/{eventId}/attendees/{attendeeId}": {
       "delete": {
-        "tags": ["Attendees"],
+        "tags": [
+          "Attendees"
+        ],
         "summary": "Remove attendee",
-        "security": [{ "bearerAuth": [] }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
-          { "name": "eventId", "in": "path", "required": true, "schema": { "type": "integer" } },
-          { "name": "attendeeId", "in": "path", "required": true, "schema": { "type": "integer" } }
+          {
+            "name": "eventId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "attendeeId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
         ],
         "responses": {
-          "204": { "description": "Removed" },
-          "401": { "description": "Unauthorized" },
-          "403": { "description": "Forbidden" },
-          "404": { "description": "Not found" }
+          "204": {
+            "description": "Removed"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not found"
+          }
         }
       }
     },
     "/api/events/{eventId}/comments": {
       "get": {
-        "tags": ["Comments"],
+        "tags": [
+          "Comments"
+        ],
         "summary": "List comments for event",
         "parameters": [
-          { "name": "eventId", "in": "path", "required": true, "schema": { "type": "integer" } }
+          {
+            "name": "eventId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
         ],
         "responses": {
           "200": {
@@ -915,7 +1698,12 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "data": { "type": "array", "items": { "$ref": "#/components/schemas/Comment" } }
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Comment"
+                      }
+                    }
                   }
                 }
               }
@@ -924,52 +1712,116 @@
         }
       },
       "post": {
-        "tags": ["Comments"],
+        "tags": [
+          "Comments"
+        ],
         "summary": "Create comment",
-        "security": [{ "bearerAuth": [] }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
-          { "name": "eventId", "in": "path", "required": true, "schema": { "type": "integer" } }
+          {
+            "name": "eventId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
         ],
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
-              "schema": { "$ref": "#/components/schemas/CommentCreateRequest" }
+              "schema": {
+                "$ref": "#/components/schemas/CommentCreateRequest"
+              }
             }
           }
         },
         "responses": {
-          "201": { "description": "Comment created" },
-          "400": { "description": "Validation error" },
-          "401": { "description": "Unauthorized" },
-          "404": { "description": "Event not found" }
+          "201": {
+            "description": "Comment created"
+          },
+          "400": {
+            "description": "Validation error"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Event not found"
+          }
         }
       }
     },
     "/api/events/{eventId}/comments/{id}": {
       "delete": {
-        "tags": ["Comments"],
+        "tags": [
+          "Comments"
+        ],
         "summary": "Delete comment",
-        "security": [{ "bearerAuth": [] }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
-          { "name": "eventId", "in": "path", "required": true, "schema": { "type": "integer" } },
-          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+          {
+            "name": "eventId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
         ],
         "responses": {
-          "204": { "description": "Comment removed" },
-          "401": { "description": "Unauthorized" },
-          "403": { "description": "Forbidden" },
-          "404": { "description": "Comment not found" }
+          "204": {
+            "description": "Comment removed"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Comment not found"
+          }
         }
       }
     },
     "/api/payments/{userId}": {
       "get": {
-        "tags": ["Payments"],
+        "tags": [
+          "Payments"
+        ],
         "summary": "List payments by user",
-        "security": [{ "bearerAuth": [] }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
-          { "name": "userId", "in": "path", "required": true, "schema": { "type": "integer" } }
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
         ],
         "responses": {
           "200": {
@@ -979,30 +1831,54 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "data": { "type": "array", "items": { "$ref": "#/components/schemas/Payment" } }
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Payment"
+                      }
+                    }
                   }
                 }
               }
             }
           },
-          "401": { "description": "Unauthorized" },
-          "403": { "description": "Forbidden" }
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
         }
       }
     },
     "/api/payments/purchase/{ticketId}": {
       "post": {
-        "tags": ["Payments"],
+        "tags": [
+          "Payments"
+        ],
         "summary": "Purchase ticket via Stripe PaymentIntent",
-        "security": [{ "bearerAuth": [] }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
-          { "name": "ticketId", "in": "path", "required": true, "schema": { "type": "integer" } }
+          {
+            "name": "ticketId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
         ],
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
-              "schema": { "$ref": "#/components/schemas/PurchaseRequest" }
+              "schema": {
+                "$ref": "#/components/schemas/PurchaseRequest"
+              }
             }
           }
         },
@@ -1011,39 +1887,78 @@
             "description": "PaymentIntent created",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/PurchaseResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/PurchaseResponse"
+                }
               }
             }
           },
-          "400": { "description": "Validation/business rule error" },
-          "401": { "description": "Unauthorized" },
-          "404": { "description": "Ticket not found" },
-          "500": { "description": "Payments not configured" }
+          "400": {
+            "description": "Validation/business rule error"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Ticket not found"
+          },
+          "500": {
+            "description": "Payments not configured"
+          }
         }
       }
     },
     "/api/payments/refund/{id}": {
       "post": {
-        "tags": ["Payments"],
+        "tags": [
+          "Payments"
+        ],
         "summary": "Refund payment",
-        "security": [{ "bearerAuth": [] }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
-          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
         ],
         "responses": {
-          "200": { "description": "Refunded" },
-          "401": { "description": "Unauthorized" },
-          "403": { "description": "Forbidden" },
-          "404": { "description": "Payment not found" },
-          "500": { "description": "Payments not configured" }
+          "200": {
+            "description": "Refunded"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Payment not found"
+          },
+          "500": {
+            "description": "Payments not configured"
+          }
         }
       }
     },
     "/api/notifications": {
       "get": {
-        "tags": ["Notifications"],
+        "tags": [
+          "Notifications"
+        ],
         "summary": "List current user notifications",
-        "security": [{ "bearerAuth": [] }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "Notifications",
@@ -1052,60 +1967,117 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "data": { "type": "array", "items": { "$ref": "#/components/schemas/Notification" } }
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Notification"
+                      }
+                    }
                   }
                 }
               }
             }
           },
-          "401": { "description": "Unauthorized" }
+          "401": {
+            "description": "Unauthorized"
+          }
         }
       }
     },
     "/api/notifications/send": {
       "post": {
-        "tags": ["Notifications"],
+        "tags": [
+          "Notifications"
+        ],
         "summary": "Send notification",
-        "security": [{ "bearerAuth": [] }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
-              "schema": { "$ref": "#/components/schemas/NotificationSendRequest" }
+              "schema": {
+                "$ref": "#/components/schemas/NotificationSendRequest"
+              }
             }
           }
         },
         "responses": {
-          "201": { "description": "Notification created" },
-          "400": { "description": "Validation error" },
-          "401": { "description": "Unauthorized" },
-          "403": { "description": "Forbidden" }
+          "201": {
+            "description": "Notification created"
+          },
+          "400": {
+            "description": "Validation error"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
         }
       }
     },
     "/api/notifications/{id}/read": {
       "post": {
-        "tags": ["Notifications"],
+        "tags": [
+          "Notifications"
+        ],
         "summary": "Mark notification as read",
-        "security": [{ "bearerAuth": [] }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
-          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
         ],
         "responses": {
-          "200": { "description": "Notification updated" },
-          "401": { "description": "Unauthorized" },
-          "403": { "description": "Forbidden" },
-          "404": { "description": "Notification not found" }
+          "200": {
+            "description": "Notification updated"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Notification not found"
+          }
         }
       }
     },
     "/api/analytics/events/{id}": {
       "get": {
-        "tags": ["Analytics"],
+        "tags": [
+          "Analytics"
+        ],
         "summary": "Get event analytics",
-        "security": [{ "bearerAuth": [] }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
-          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
         ],
         "responses": {
           "200": {
@@ -1115,23 +2087,37 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "data": { "$ref": "#/components/schemas/AnalyticsEventStats" }
+                    "data": {
+                      "$ref": "#/components/schemas/AnalyticsEventStats"
+                    }
                   }
                 }
               }
             }
           },
-          "401": { "description": "Unauthorized" },
-          "403": { "description": "Forbidden" },
-          "404": { "description": "Event not found" }
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Event not found"
+          }
         }
       }
     },
     "/api/analytics/users": {
       "get": {
-        "tags": ["Analytics"],
+        "tags": [
+          "Analytics"
+        ],
         "summary": "Get platform metrics (Admin)",
-        "security": [{ "bearerAuth": [] }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "User analytics",
@@ -1140,33 +2126,527 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "data": { "$ref": "#/components/schemas/AnalyticsUsersMetrics" }
+                    "data": {
+                      "$ref": "#/components/schemas/AnalyticsUsersMetrics"
+                    }
                   }
                 }
               }
             }
           },
-          "401": { "description": "Unauthorized" },
-          "403": { "description": "Forbidden" }
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
         }
       }
     },
     "/api/webhooks/stripe": {
       "post": {
-        "tags": ["Webhooks"],
+        "tags": [
+          "Webhooks"
+        ],
         "summary": "Stripe webhook endpoint",
         "description": "Consumes raw application/json payload for Stripe signature verification.",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
-              "schema": { "type": "object" }
+              "schema": {
+                "type": "object"
+              }
             }
           }
         },
         "responses": {
-          "200": { "description": "Webhook received" },
-          "400": { "description": "Signature verification failed" }
+          "200": {
+            "description": "Webhook received"
+          },
+          "400": {
+            "description": "Signature verification failed"
+          }
+        }
+      }
+    },
+    "/api/events/{id}/accessibility": {
+      "get": {
+        "tags": [
+          "Events"
+        ],
+        "summary": "Get accessibility profile for event",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not found"
+          }
+        }
+      }
+    },
+    "/api/events/{eventId}/attendees/waitlist/claim": {
+      "post": {
+        "tags": [
+          "Attendees"
+        ],
+        "summary": "Claim waitlist offer token",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Offer claimed"
+          },
+          "400": {
+            "description": "Invalid token"
+          }
+        }
+      }
+    },
+    "/api/events/{eventId}/attendees/waitlist/offers": {
+      "get": {
+        "tags": [
+          "Attendees"
+        ],
+        "summary": "List waitlist offers for event",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Offers list"
+          }
+        }
+      }
+    },
+    "/api/events/{eventId}/attendees/me/safety": {
+      "post": {
+        "tags": [
+          "Attendees"
+        ],
+        "summary": "Update my safety status during emergency",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Updated"
+          }
+        }
+      }
+    },
+    "/api/events/{eventId}/attendees/safety/summary": {
+      "get": {
+        "tags": [
+          "Attendees"
+        ],
+        "summary": "Safety status summary for event",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Summary"
+          }
+        }
+      }
+    },
+    "/api/events/{eventId}/scholarships/tickets/{ticketId}/apply": {
+      "post": {
+        "tags": [
+          "Scholarships"
+        ],
+        "summary": "Apply for scholarship ticket",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Application created"
+          }
+        }
+      }
+    },
+    "/api/events/{eventId}/scholarships": {
+      "get": {
+        "tags": [
+          "Scholarships"
+        ],
+        "summary": "List scholarship applications for event",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Applications"
+          }
+        }
+      }
+    },
+    "/api/events/{eventId}/scholarships/{id}/review": {
+      "post": {
+        "tags": [
+          "Scholarships"
+        ],
+        "summary": "Approve or reject scholarship application",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Reviewed"
+          }
+        }
+      }
+    },
+    "/api/events/{eventId}/team": {
+      "get": {
+        "tags": [
+          "Team"
+        ],
+        "summary": "List organizer team members",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Members"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Team"
+        ],
+        "summary": "Add or update team member",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Member upserted"
+          }
+        }
+      }
+    },
+    "/api/events/{eventId}/team/{memberId}": {
+      "delete": {
+        "tags": [
+          "Team"
+        ],
+        "summary": "Remove team member",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Removed"
+          }
+        }
+      }
+    },
+    "/api/events/{eventId}/team/approvals/request": {
+      "post": {
+        "tags": [
+          "Team"
+        ],
+        "summary": "Submit approval request for protected change",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Approval created"
+          }
+        }
+      }
+    },
+    "/api/events/{eventId}/team/approvals/list": {
+      "get": {
+        "tags": [
+          "Team"
+        ],
+        "summary": "List approval requests",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Approvals"
+          }
+        }
+      }
+    },
+    "/api/events/{eventId}/team/approvals/{id}/resolve": {
+      "post": {
+        "tags": [
+          "Team"
+        ],
+        "summary": "Resolve approval request",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resolved"
+          }
+        }
+      }
+    },
+    "/api/payments/flagged/list": {
+      "get": {
+        "tags": [
+          "Payments"
+        ],
+        "summary": "List flagged high-risk payments",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Flagged payments"
+          }
+        }
+      }
+    },
+    "/api/payments/refund-preview/{id}": {
+      "get": {
+        "tags": [
+          "Payments"
+        ],
+        "summary": "Preview policy-based refund amount",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Preview"
+          }
+        }
+      }
+    },
+    "/api/notifications/emergency/broadcast": {
+      "post": {
+        "tags": [
+          "Notifications"
+        ],
+        "summary": "Broadcast emergency message to attendees",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Broadcast sent"
+          }
+        }
+      }
+    },
+    "/api/outbox": {
+      "get": {
+        "tags": [
+          "Outbox"
+        ],
+        "summary": "List outbox delivery events",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Outbox events"
+          }
+        }
+      }
+    },
+    "/api/outbox/process": {
+      "post": {
+        "tags": [
+          "Outbox"
+        ],
+        "summary": "Process pending outbox events",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Processed"
+          }
+        }
+      }
+    },
+    "/api/public/transparency": {
+      "get": {
+        "tags": [
+          "Public"
+        ],
+        "summary": "Public transparency and social impact metrics",
+        "responses": {
+          "200": {
+            "description": "Metrics"
+          }
+        }
+      }
+    },
+    "/api/privacy/consents": {
+      "post": {
+        "tags": [
+          "Privacy"
+        ],
+        "summary": "Record consent decision",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Logged"
+          }
+        }
+      }
+    },
+    "/api/privacy/consents/me": {
+      "get": {
+        "tags": [
+          "Privacy"
+        ],
+        "summary": "List my consent logs",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Consents"
+          }
+        }
+      }
+    },
+    "/api/privacy/requests/export": {
+      "post": {
+        "tags": [
+          "Privacy"
+        ],
+        "summary": "Request personal data export",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Request created"
+          }
+        }
+      }
+    },
+    "/api/privacy/requests/delete": {
+      "post": {
+        "tags": [
+          "Privacy"
+        ],
+        "summary": "Request account data deletion",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Request created"
+          }
+        }
+      }
+    },
+    "/api/privacy/requests/me": {
+      "get": {
+        "tags": [
+          "Privacy"
+        ],
+        "summary": "List my privacy requests",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Requests"
+          }
+        }
+      }
+    },
+    "/api/privacy/requests/{id}/resolve": {
+      "post": {
+        "tags": [
+          "Privacy"
+        ],
+        "summary": "Resolve privacy request (Admin)",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resolved"
+          }
+        }
+      }
+    },
+    "/api/privacy/retention/run": {
+      "post": {
+        "tags": [
+          "Privacy"
+        ],
+        "summary": "Run retention cleanup task (Admin)",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retention job summary"
+          }
         }
       }
     }

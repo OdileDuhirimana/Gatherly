@@ -27,6 +27,7 @@ const { hashPassword } = require('../utils/password');
       location: 'Online',
       images: [],
       tags: ['featured'],
+      accessibility: { features: ['wheelchair_access', 'live_captioning'] },
       startDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
       endDate: new Date(Date.now() + 8 * 24 * 60 * 60 * 1000),
       published: true,
@@ -34,8 +35,9 @@ const { hashPassword } = require('../utils/password');
     });
 
     await models.Ticket.bulkCreate([
-      { eventId: event.id, type: 'Regular', price: 25.00, quantity: 100, sold: 0, currency: 'usd' },
-      { eventId: event.id, type: 'VIP', price: 100.00, quantity: 20, sold: 0, currency: 'usd' }
+      { eventId: event.id, type: 'Regular', price: 25.00, quantity: 100, sold: 0, currency: 'usd', refundPolicy: { windows: [{ hoursBefore: 168, percent: 100 }, { hoursBefore: 72, percent: 50 }, { hoursBefore: 24, percent: 25 }] } },
+      { eventId: event.id, type: 'VIP', price: 100.00, quantity: 20, sold: 0, currency: 'usd', isDonation: true, minDonationAmount: 10.00 },
+      { eventId: event.id, type: 'EarlyBird', price: 10.00, quantity: 15, sold: 0, currency: 'usd', isScholarship: true }
     ]);
 
     // eslint-disable-next-line no-console

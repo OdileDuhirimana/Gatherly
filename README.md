@@ -64,26 +64,69 @@ This creates demo users and a sample event/tickets.
 - Attendees:
   - `GET /api/events/:eventId/attendees`
   - `POST /api/events/:eventId/attendees/register`
+  - `POST /api/events/:eventId/attendees/waitlist/claim`
+  - `GET /api/events/:eventId/attendees/waitlist/offers`
+  - `POST /api/events/:eventId/attendees/me/safety`
+  - `GET /api/events/:eventId/attendees/safety/summary`
   - `POST /api/events/:eventId/attendees/scan/checkin`
   - `POST /api/events/:eventId/attendees/:attendeeId/checkin`
   - `DELETE /api/events/:eventId/attendees/:attendeeId`
+- Scholarships:
+  - `POST /api/events/:eventId/scholarships/tickets/:ticketId/apply`
+  - `GET /api/events/:eventId/scholarships`
+  - `POST /api/events/:eventId/scholarships/:id/review`
+- Team & approvals:
+  - `GET /api/events/:eventId/team`
+  - `POST /api/events/:eventId/team`
+  - `DELETE /api/events/:eventId/team/:memberId`
+  - `POST /api/events/:eventId/team/approvals/request`
+  - `GET /api/events/:eventId/team/approvals/list`
+  - `POST /api/events/:eventId/team/approvals/:id/resolve`
 - Comments:
   - `GET /api/events/:eventId/comments`
   - `POST /api/events/:eventId/comments`
   - `DELETE /api/events/:eventId/comments/:id`
 - Payments:
   - `GET /api/payments/:userId`
+  - `GET /api/payments/flagged/list`
   - `POST /api/payments/purchase/:ticketId`
+  - `GET /api/payments/refund-preview/:id`
   - `POST /api/payments/refund/:id`
 - Notifications:
   - `GET /api/notifications`
   - `POST /api/notifications/send`
+  - `POST /api/notifications/emergency/broadcast`
   - `POST /api/notifications/:id/read`
 - Analytics:
   - `GET /api/analytics/events/:id`
   - `GET /api/analytics/users`
+- Public:
+  - `GET /api/public/transparency`
+- Outbox:
+  - `GET /api/outbox`
+  - `POST /api/outbox/process`
+- Privacy:
+  - `POST /api/privacy/consents`
+  - `GET /api/privacy/consents/me`
+  - `POST /api/privacy/requests/export`
+  - `POST /api/privacy/requests/delete`
+  - `GET /api/privacy/requests/me`
+  - `POST /api/privacy/requests/:id/resolve`
+  - `POST /api/privacy/retention/run`
 - Webhooks:
   - `POST /api/webhooks/stripe`
+
+## Advanced features added (portfolio-grade)
+- Waitlist auto-promotion with expiring claim offers.
+- Fraud/risk scoring for purchases with flagged payment queue.
+- Emergency broadcast and attendee safety check-ins.
+- Accessibility metadata support and filtering-ready event schema.
+- Donation + scholarship ticket workflows.
+- Policy-based partial/full refund preview and execution.
+- Organizer team roles with approval request workflows.
+- Reliable outbox pattern for webhook/event delivery retries.
+- Public transparency dashboard for social-impact metrics.
+- Privacy/compliance APIs (consent logs, export/delete requests, retention jobs).
 
 ## API docs and collection
 - Swagger UI: `GET /api/docs`

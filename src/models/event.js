@@ -8,6 +8,7 @@ module.exports = (sequelize, DataTypes) => {
     location: { type: DataTypes.STRING(200) },
     images: { type: DataTypes.JSON },
     tags: { type: DataTypes.JSON },
+    accessibility: { type: DataTypes.JSON },
     startDate: { type: DataTypes.DATE, allowNull: false },
     endDate: { type: DataTypes.DATE, allowNull: false },
     recurringRule: { type: DataTypes.STRING(200) },
