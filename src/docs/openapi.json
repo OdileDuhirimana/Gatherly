@@ -285,6 +285,23 @@
           "checkedIn": { "type": "boolean" }
         }
       },
+      "CheckinScanRequest": {
+        "type": "object",
+        "required": ["token"],
+        "properties": {
+          "token": { "type": "string", "minLength": 20 }
+        }
+      },
+      "AttendeeRegisterResponse": {
+        "type": "object",
+        "properties": {
+          "data": { "$ref": "#/components/schemas/Attendee" },
+          "checkInToken": {
+            "type": "string",
+            "description": "Signed QR payload used by scanner endpoint for anti-fraud check-in."
+          }
+        }
+      },
       "CommentCreateRequest": {
         "type": "object",
         "required": ["content"],
@@ -800,10 +817,43 @@
           }
         },
         "responses": {
-          "201": { "description": "Attendee created" },
+          "201": {
+            "description": "Attendee created",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/AttendeeRegisterResponse" }
+              }
+            }
+          },
           "400": { "description": "Validation/business rule error" },
           "401": { "description": "Unauthorized" },
           "404": { "description": "Ticket not found" }
+        }
+      }
+    },
+    "/api/events/{eventId}/attendees/scan/checkin": {
+      "post": {
+        "tags": ["Attendees"],
+        "summary": "Check-in attendee by scanning signed QR token",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          { "name": "eventId", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CheckinScanRequest" }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Attendee checked in" },
+          "400": { "description": "Validation/token error" },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" },
+          "404": { "description": "Event or attendee not found" },
+          "409": { "description": "Already checked-in or waitlisted attendee" }
         }
       }
     },

@@ -11,6 +11,7 @@
     { "key": "adminToken", "value": "" },
     { "key": "eventId", "value": "1" },
     { "key": "ticketId", "value": "1" },
+    { "key": "checkInToken", "value": "" },
     { "key": "attendeeId", "value": "1" },
     { "key": "commentId", "value": "1" },
     { "key": "notificationId", "value": "1" },
@@ -252,6 +253,21 @@
               { "key": "Authorization", "value": "Bearer {{organizerToken}}" }
             ],
             "url": "{{baseUrl}}/api/events/{{eventId}}/attendees"
+          }
+        },
+        {
+          "name": "Scan Signed QR Check-In",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{organizerToken}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"token\": \"{{checkInToken}}\"\n}"
+            },
+            "url": "{{baseUrl}}/api/events/{{eventId}}/attendees/scan/checkin"
           }
         },
         {

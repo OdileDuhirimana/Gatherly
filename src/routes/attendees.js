@@ -15,6 +15,14 @@ router.post('/register',
   ctrl.register
 );
 
+// Scan signed QR token and check-in attendee
+router.post('/scan/checkin',
+  auth(['Admin', 'Organizer']),
+  param('eventId').isInt({ min: 1 }),
+  body('token').isString().isLength({ min: 20 }),
+  ctrl.scanCheckIn
+);
+
 // Check-in/out attendee
 router.post('/:attendeeId/checkin',
   auth(['Admin', 'Organizer']),

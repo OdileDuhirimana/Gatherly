@@ -19,6 +19,7 @@ const requiredOpenApiPaths = [
   '/api/events/{eventId}/tickets/{ticketId}',
   '/api/events/{eventId}/attendees',
   '/api/events/{eventId}/attendees/register',
+  '/api/events/{eventId}/attendees/scan/checkin',
   '/api/events/{eventId}/attendees/{attendeeId}/checkin',
   '/api/events/{eventId}/attendees/{attendeeId}',
   '/api/events/{eventId}/comments',
@@ -40,7 +41,8 @@ const requiredPostmanVariables = [
   'organizerToken',
   'adminToken',
   'eventId',
-  'ticketId'
+  'ticketId',
+  'checkInToken'
 ];
 
 const readJson = (filePath) => {

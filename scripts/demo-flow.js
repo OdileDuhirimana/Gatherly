@@ -16,6 +16,7 @@ const state = {
   eventId: null,
   ticketId: null,
   attendeeId: null,
+  checkInToken: null,
   paymentId: null
 };
 
@@ -153,6 +154,7 @@ const run = async () => {
 
     assertStatus(result, [201], 'Attendee registration');
     state.attendeeId = result.data.data.id;
+    state.checkInToken = result.data.checkInToken;
     console.log('attendeeId', state.attendeeId);
   });
 
@@ -165,10 +167,14 @@ const run = async () => {
     console.log('commentId', result.data.data.id);
   });
 
-  await step('Organizer checks attendee in', async () => {
-    const result = await request('POST', `/api/events/${state.eventId}/attendees/${state.attendeeId}/checkin`, {
+  await step('Organizer checks attendee in by scanning signed QR token', async () => {
+    if (!state.checkInToken) {
+      throw new Error('Missing check-in token in attendee registration response');
+    }
+
+    const result = await request('POST', `/api/events/${state.eventId}/attendees/scan/checkin`, {
       token: state.organizerToken,
-      body: { checkedIn: true }
+      body: { token: state.checkInToken }
     });
 
     assertStatus(result, [200], 'Check-in attendee');

@@ -64,6 +64,7 @@ This creates demo users and a sample event/tickets.
 - Attendees:
   - `GET /api/events/:eventId/attendees`
   - `POST /api/events/:eventId/attendees/register`
+  - `POST /api/events/:eventId/attendees/scan/checkin`
   - `POST /api/events/:eventId/attendees/:attendeeId/checkin`
   - `DELETE /api/events/:eventId/attendees/:attendeeId`
 - Comments:
@@ -94,8 +95,8 @@ This creates demo users and a sample event/tickets.
 2. Organizer/Admin creates and publishes an event.
 3. Organizer creates ticket tiers for that event.
 4. Attendee purchases ticket with Stripe (`/api/payments/purchase/:ticketId`).
-5. Stripe webhook confirms payment and triggers attendee/ticket issuance.
-6. Organizer checks attendees in, and reviews analytics and notifications.
+5. Stripe webhook confirms payment and issues a signed QR ticket payload.
+6. Organizer checks attendees in via anti-fraud signed QR scanning, then reviews analytics and notifications.
 
 ## Tests
 
@@ -131,9 +132,20 @@ The script performs a full journey:
 5. attendee registration/login
 6. attendee event registration
 7. attendee comment submission
-8. organizer attendee check-in
+8. organizer signed-QR attendee check-in
 9. optional purchase flow (if Stripe is configured)
 10. event analytics fetch
+
+## Pro feature highlight: anti-fraud QR check-in
+
+Gatherly now uses signed check-in QR tokens instead of predictable attendee IDs.
+
+- Token signing utility: `src/utils/checkinToken.js`
+- Scanner endpoint (Organizer/Admin): `POST /api/events/:eventId/attendees/scan/checkin`
+- Registration returns a check-in token for attendee pass flows.
+- Stripe e-ticket generation embeds the signed token into the QR payload.
+
+This materially improves venue safety and fraud resistance by preventing forged/guessable QR payloads.
 
 Optional env overrides:
 - `DEMO_BASE_URL` (default `http://localhost:5000`)

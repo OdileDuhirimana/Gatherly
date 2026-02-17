@@ -5,6 +5,7 @@ const PDFDocument = require('pdfkit');
 const fs = require('fs');
 const path = require('path');
 const { sendEmail } = require('../utils/email');
+const { signCheckInToken } = require('../utils/checkinToken');
 
 const parseWebhookBody = (body) => {
   if (Buffer.isBuffer(body)) {
@@ -68,7 +69,7 @@ const stripeWebhook = async (req, res) => {
 
 async function generateAndEmailTicket({ attendee, ticket }) {
   try {
-    const qrData = `gatherly:attendee:${attendee.id}`;
+    const qrData = signCheckInToken({ attendeeId: attendee.id, eventId: attendee.eventId, ticketId: attendee.ticketId });
     const qrPng = await qrcode.toDataURL(qrData);
     const pdfDir = path.join(process.cwd(), process.env.TICKET_PDF_DIR || 'storage/tickets');
     const pdfPath = path.join(pdfDir, `ticket-${attendee.id}.pdf`);
