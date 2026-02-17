@@ -9,6 +9,9 @@
     "dev": "cross-env NODE_ENV=development nodemon src/server.js",
     "start": "cross-env NODE_ENV=production node src/server.js",
     "test": "cross-env NODE_ENV=test jest --runInBand",
+    "check:docs": "node scripts/check-docs.js",
+    "ci": "npm test && npm run check:docs",
+    "demo:flow": "node scripts/demo-flow.js",
     "lint": "eslint .",
     "seed": "node src/seed/seed.js",
     "swagger:gen": "node src/docs/generate.js"

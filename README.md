@@ -103,6 +103,46 @@ This creates demo users and a sample event/tickets.
 npm test
 ```
 
+## Quality gates (CI)
+
+```bash
+npm run ci
+```
+
+This runs:
+- automated tests
+- OpenAPI + Postman contract checks (`npm run check:docs`)
+
+GitHub Actions workflow file: `.github/workflows/ci.yml`
+
+## Portfolio demo flow (scripted)
+
+Run the API first (`docker compose up --build` or your local setup), then execute:
+
+```bash
+npm run demo:flow
+```
+
+The script performs a full journey:
+1. health check
+2. organizer login
+3. event creation
+4. ticket creation
+5. attendee registration/login
+6. attendee event registration
+7. attendee comment submission
+8. organizer attendee check-in
+9. optional purchase flow (if Stripe is configured)
+10. event analytics fetch
+
+Optional env overrides:
+- `DEMO_BASE_URL` (default `http://localhost:5000`)
+- `DEMO_ORGANIZER_EMAIL` (default `org1@gatherly.local`)
+- `DEMO_ORGANIZER_PASSWORD` (default `Organizer@1234`)
+- `DEMO_ATTENDEE_EMAIL` (auto-generated if unset)
+- `DEMO_ATTENDEE_NAME` (auto-generated if unset)
+- `DEMO_ATTENDEE_PASSWORD` (default `Attendee@1234`)
+
 ## Environment variables
 See `.env.example`. Important ones:
 - DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_PASSWORD
